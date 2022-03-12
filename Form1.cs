@@ -92,7 +92,19 @@ namespace WindowsFormsApp1
             return (average);
         }
 
+        private void Form1_Load(object sender, EventArgs e) //首先在主窗体添加定时事件
+        {
+            this.timer1.Interval = 1000;//设置定时器触发间隔
+            this.timer1.Start();    //启动定时器
+            labelDate.Text = DateTime.Now.ToString();
+        }
 
+        private void timer1_Tick(object sender, EventArgs e)    //接着在定时器触发事件中添加获取时间和显示时间函数
+        {
+            DateTime time = DateTime.Now;       //获取当前时间
+            //labelDate.Font = new Font("宋体", 12);  //设置label1显示字体
+            this.labelDate.Text = time.ToString(); //显示当前时间
+        }
 
         private void label1_Click(object sender, EventArgs e)
         {
@@ -184,6 +196,11 @@ namespace WindowsFormsApp1
         private void button6_Click(object sender, EventArgs e)
         {
             Console.WriteLine("学生的平均分数:" + getAverage());
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
         }
     }
     public class Student

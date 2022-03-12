@@ -47,6 +47,8 @@ namespace WindowsFormsApp1
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
+            this.labelDate = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -229,11 +231,28 @@ namespace WindowsFormsApp1
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
+            // labelDate
+            // 
+            this.labelDate.AutoSize = true;
+            this.labelDate.Location = new System.Drawing.Point(13, 426);
+            this.labelDate.Name = "labelDate";
+            this.labelDate.Size = new System.Drawing.Size(41, 12);
+            this.labelDate.TabIndex = 9;
+            //this.labelDate.Text = System.DateTime.Now.ToString("G");
+            //this.labelDate.Click += new System.EventHandler(this.label6_Click);
+
+            //
+            //timer1
+            //
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.labelDate);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
@@ -249,8 +268,15 @@ namespace WindowsFormsApp1
             this.panel3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
+            this.Load += Form1_Load;
 
         }
+
+        /*private void Form1_Load1(object sender, System.EventArgs e)
+        {
+            throw new System.NotImplementedException();
+            
+        }*/
 
         #endregion
         private System.Windows.Forms.Button button1;
@@ -271,6 +297,8 @@ namespace WindowsFormsApp1
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Label labelDate;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 
