@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 
 namespace WindowsFormsApp1
@@ -23,12 +24,67 @@ namespace WindowsFormsApp1
         public Form1()
         {
             InitializeComponent();
+            this.Load += Form1_Load;
             
+        }
+
+        public void saveInfo()
+        {
+            StreamWriter sw=new StreamWriter("D:/studentInfo.txt");
+            LinkedListNode<Student> prev = linkListStudent.First;
+            //sw.WriteLine("123456");
+            while (prev != null)
+            {
+                sw.WriteLine(prev.Value.no + "\r\n" + prev.Value.name + "\r\n" + prev.Value.deg);
+                prev = prev.Next;
+            }
+            sw.Close();
+            
+        }
+
+        public void readInfo()
+        {
+            StreamReader sr = new StreamReader("D:/studentInfo.txt");
+            //Console.WriteLine(sr.ReadToEnd());
+            string line;
+            string[] array=new string[102];
+            int i = 0;
+            while ((line = sr.ReadLine()) != null)
+            {
+                
+                Console.WriteLine(line);
+                array[i] = line;
+                i++;
+            }
+
+            int j = 0;
+            while (array[j] != null)
+            {
+                Console.WriteLine("array"+array[j]);
+                j++;
+            }
+
+            for (int n = 0; array[n] != null; n = n + 3)
+            {
+                p=new Student(true, array[n], array[n + 1], array[n + 2]);
+                linkListStudent.AddLast(p);
+                addRecord(true, linkListStudent.Last);
+            }
+
+
+            /*while (line != null)
+            {
+                p = new Student(true, sr.ReadLine(), sr.ReadLine(), sr.ReadLine());
+                Console.WriteLine("test"+p.deg);
+            }
+            //Console.WriteLine(sr.Read());*/
+
+            sr.Close();
         }
 
         private void setPanelUnvisible()
         {
-            panel2.Visible = false;
+            panel1.Visible = false;
             panel3.Visible = false;
         }
 
@@ -36,7 +92,7 @@ namespace WindowsFormsApp1
         {
             p = new Student(textBox1,textBox2,textBox3);
             linkListStudent.AddLast(p);
-
+            addRecord(true,linkListStudent.Last);
         }
 
         private void display()
@@ -48,8 +104,8 @@ namespace WindowsFormsApp1
             }
             else
             {
+                Console.WriteLine("当前学生总数为:"+Student.sumNum);
                 linkNodeStudent.Value.showInfo();
-
                 while (linkNodeStudent.Next != null)
                 {
 
@@ -76,6 +132,8 @@ namespace WindowsFormsApp1
                     {
                         Student.sumDeg -= linkNodeStudent.Value.deg;
                         Student.sumNum--;
+                        
+                        addRecord(false,linkNodeStudent);
                         linkListStudent.Remove(linkNodeStudent);
                         Console.WriteLine("删除成功");
                     }
@@ -99,11 +157,28 @@ namespace WindowsFormsApp1
             labelDate.Text = DateTime.Now.ToString();
         }
 
+
         private void timer1_Tick(object sender, EventArgs e)    //接着在定时器触发事件中添加获取时间和显示时间函数
         {
             DateTime time = DateTime.Now;       //获取当前时间
             //labelDate.Font = new Font("宋体", 12);  //设置label1显示字体
             this.labelDate.Text = time.ToString(); //显示当前时间
+        }
+
+        private void addRecord(bool isAdd,LinkedListNode<Student> node)//为操作添加历史记录
+        {
+            if (isAdd)
+            {
+                /*this.listBox1.Items.Add("添加了学号为"+this.textBox1.Text+
+                    "  姓名为"+this.textBox2.Text+"的学生");*/
+                this.listBox1.Items.Add(labelDate.Text+"添加了学号为" + node.Value.no +
+                    ",姓名为" + node.Value.name + "的学生");
+            }
+            else
+            {
+                this.listBox1.Items.Add(labelDate.Text+"删除了学号为" + node.Value.no +
+                    ",姓名为" + node.Value.name + "的学生");
+            }
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -114,7 +189,7 @@ namespace WindowsFormsApp1
         private void button1_Click(object sender, EventArgs e)
         {
             setPanelUnvisible();
-            panel2.Visible = true;
+            this.panel1.Visible = true;
         }
 
         private void progressBar1_Click(object sender, EventArgs e)
@@ -174,7 +249,8 @@ namespace WindowsFormsApp1
 
         private void button4_Click(object sender, EventArgs e)
         {
-            //setPanelUnvisible();
+            setPanelUnvisible();
+            //panel2.Visible = false;
             panel3.Visible = true;
         }
 
@@ -202,6 +278,18 @@ namespace WindowsFormsApp1
         {
 
         }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            
+            saveInfo();
+            
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            readInfo();
+        }
     }
     public class Student
     {
@@ -224,6 +312,9 @@ namespace WindowsFormsApp1
                 sumNum++;
                 sumDeg += deg;
                 Console.WriteLine("添加成功");
+                a.Text = null;
+                b.Text = null;
+                c.Text = null;
             }
             catch
             {
@@ -231,6 +322,17 @@ namespace WindowsFormsApp1
             }
         }
         
+        public Student(bool l,String a,String b,String c)
+        {
+            no = a;
+            name = b;
+            deg = float.Parse(c);
+
+            sumNum++;
+            sumDeg += deg;
+            Console.WriteLine("success");
+        }
+
         public void showInfo()
         {
             Console.WriteLine(no +"  "+ name+"  " + deg);
