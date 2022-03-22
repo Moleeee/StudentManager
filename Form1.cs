@@ -23,31 +23,33 @@ namespace WindowsFormsApp1
         
         public Form1()
         {
-            InitializeComponent();
-            this.Load += Form1_Load;
-            
+            InitializeComponent();      //初始化窗体
+            this.Load += Form1_Load;    //
+            this.Load += readInfo;      //窗体载入时读取文件
+            this.FormClosed += saveInfo;//窗体关闭后写入文件
         }
 
-        public void saveInfo()
+        public void saveInfo(object sender, EventArgs e)    //在文件中写入学生信息
         {
             StreamWriter sw=new StreamWriter("D:/studentInfo.txt");
             LinkedListNode<Student> prev = linkListStudent.First;
             //sw.WriteLine("123456");
             while (prev != null)
             {
-                sw.WriteLine(prev.Value.no + "\r\n" + prev.Value.name + "\r\n" + prev.Value.deg);
+                sw.WriteLine(prev.Value.no + "\r\n" + prev.Value.name + "\r\n" + prev.Value.deg
+                            + "\r\n" + prev.Value.sex + "\r\n" + prev.Value.grade);
                 prev = prev.Next;
             }
             sw.Close();
             
         }
 
-        public void readInfo()
+        public void readInfo(object sender, EventArgs e)    //从文件中读取学生信息
         {
             StreamReader sr = new StreamReader("D:/studentInfo.txt");
             //Console.WriteLine(sr.ReadToEnd());
             string line;
-            string[] array=new string[102];
+            string[] array=new string[200];
             int i = 0;
             while ((line = sr.ReadLine()) != null)
             {
@@ -64,9 +66,9 @@ namespace WindowsFormsApp1
                 j++;
             }
 
-            for (int n = 0; array[n] != null; n = n + 3)
+            for (int n = 0; array[n] != null; n = n + 5)
             {
-                p=new Student(true, array[n], array[n + 1], array[n + 2]);
+                p=new Student(true, array[n], array[n + 1], array[n + 2],array[n+3],array[n+4]);
                 linkListStudent.AddLast(p);
                 addRecord(true, linkListStudent.Last);
             }
@@ -82,20 +84,45 @@ namespace WindowsFormsApp1
             sr.Close();
         }
 
-        private void setPanelUnvisible()
+        private void setPanelUnvisible()    //隐藏面板，用于不同面板切换
         {
             panel1.Visible = false;
             panel3.Visible = false;
         }
 
-        private void addStudent()
+        private bool isNoDifferent(TextBox no)  //判断学号是否重复
         {
-            p = new Student(textBox1,textBox2,textBox3);
-            linkListStudent.AddLast(p);
-            addRecord(true,linkListStudent.Last);
+            LinkedListNode<Student> prev = linkListStudent.First;
+            int sameNum = 0;
+            while (prev != null)
+            {
+                if (prev.Value.no == no.Text)
+                {
+                    sameNum++;
+                    break;
+                }
+                prev = prev.Next;
+            }
+            return (sameNum == 0) ? true : false;
         }
 
-        private void display()
+        private void addStudent()   //添加学生
+        {
+            LinkedListNode<Student> prev = linkListStudent.First;
+            if (isNoDifferent(textBox1))
+            {
+                p = new Student(textBox1,textBox2,textBox3,comboBox1,comboBox2);
+                linkListStudent.AddLast(p);
+                addRecord(true,linkListStudent.Last);
+            }
+            else
+            {
+                Console.WriteLine("学号重复，添加失败");
+            }
+            
+        }
+
+        private void display()   //显示所有学生信息
         {
             LinkedListNode<Student> linkNodeStudent = linkListStudent.First;
             if (Student.sumNum == 0)
@@ -116,7 +143,7 @@ namespace WindowsFormsApp1
             
         }
         
-        private void delStudent(TextBox delNo)
+        private void delStudent(TextBox delNo)  //删除指定学号的学生
         {
             LinkedListNode<Student> linkNodeStudent = linkListStudent.First;
 
@@ -141,10 +168,9 @@ namespace WindowsFormsApp1
                     linkNodeStudent = linkNodeStudent.Next;
                 }
             }
-            
         }
 
-        private float getAverage()
+        private float getAverage()  //获取所有学生的平均分
         {
             float average =(Student.sumNum==0) ? 0 : (Student.sumDeg/Student.sumNum) ;
             return (average);
@@ -165,7 +191,7 @@ namespace WindowsFormsApp1
             this.labelDate.Text = time.ToString(); //显示当前时间
         }
 
-        private void addRecord(bool isAdd,LinkedListNode<Student> node)//为操作添加历史记录
+        public void addRecord(bool isAdd,LinkedListNode<Student> node)//为操作添加历史记录
         {
             if (isAdd)
             {
@@ -173,6 +199,7 @@ namespace WindowsFormsApp1
                     "  姓名为"+this.textBox2.Text+"的学生");*/
                 this.listBox1.Items.Add(labelDate.Text+"添加了学号为" + node.Value.no +
                     ",姓名为" + node.Value.name + "的学生");
+                
             }
             else
             {
@@ -239,7 +266,7 @@ namespace WindowsFormsApp1
             
         }
 
-        private void textBox3_KeyPress(object sender, KeyPressEventArgs e)
+        private void textBox_KeyPress(object sender, KeyPressEventArgs e)   //限制输入为纯数字
         {
             if (!(e.KeyChar == '-' || e.KeyChar == '\b' || float.TryParse(((TextBox)sender).Text + e.KeyChar.ToString(), out float f)))
             {
@@ -282,13 +309,22 @@ namespace WindowsFormsApp1
         private void button7_Click(object sender, EventArgs e)
         {
             
-            saveInfo();
+            //saveInfo();
             
         }
 
         private void button8_Click(object sender, EventArgs e)
         {
-            readInfo();
+            //readInfo();
+            //Form form2 = new Form();
+            //new Form2().ShowDialog();
+            
+            
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
     public class Student
@@ -296,25 +332,32 @@ namespace WindowsFormsApp1
         public string no;
         public string name;
         public float deg;
+        public string sex;
+        public string grade;
 
         public static int sumNum=0;
         public static float sumDeg=0;
         
         
-        public Student(TextBox a, TextBox b, TextBox c) 
+        public Student(TextBox a, TextBox b, TextBox c,ComboBox d,ComboBox e)   //构造函数1
         {
             try
             {
                 no = a.Text;
                 name = b.Text;
                 deg = float.Parse(c.Text);
+                sex = d.Text;
+                grade = e.Text;
 
                 sumNum++;
                 sumDeg += deg;
+                
                 Console.WriteLine("添加成功");
                 a.Text = null;
                 b.Text = null;
                 c.Text = null;
+                d.Text = null;
+                e.Text = null;
             }
             catch
             {
@@ -322,20 +365,22 @@ namespace WindowsFormsApp1
             }
         }
         
-        public Student(bool l,String a,String b,String c)
+        public Student(bool l,String a,String b,String c,String d,String e)     //构造函数2
         {
             no = a;
             name = b;
             deg = float.Parse(c);
+            sex = d;
+            grade = e;
 
             sumNum++;
             sumDeg += deg;
             Console.WriteLine("success");
         }
 
-        public void showInfo()
+        public void showInfo()  //展示学生信息
         {
-            Console.WriteLine(no +"  "+ name+"  " + deg);
+            Console.WriteLine(no +"  "+ name+"  " + deg+" "+ sex +" " + grade);
         }
     }
 }
