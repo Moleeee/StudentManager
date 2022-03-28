@@ -70,9 +70,9 @@ namespace WindowsFormsApp1
             {
                 p=new Student(true, array[n], array[n + 1], array[n + 2],array[n+3],array[n+4]);
                 linkListStudent.AddLast(p);
-                addRecord(true, linkListStudent.Last);
+                //addRecord(true, linkListStudent.Last);
             }
-
+            listBox1.Items.Add("文件读取成功");
 
             /*while (line != null)
             {
@@ -87,6 +87,7 @@ namespace WindowsFormsApp1
         private void setPanelUnvisible()    //隐藏面板，用于不同面板切换
         {
             panel1.Visible = false;
+            panel2.Visible = false;
             panel3.Visible = false;
         }
 
@@ -111,7 +112,7 @@ namespace WindowsFormsApp1
             LinkedListNode<Student> prev = linkListStudent.First;
             if (isNoDifferent(textBox1))
             {
-                p = new Student(textBox1,textBox2,textBox3,comboBox1,comboBox2);
+                p = new Student(textBox1,textBox2,textBox3,comboBox2,comboBox1);
                 linkListStudent.AddLast(p);
                 addRecord(true,linkListStudent.Last);
             }
@@ -122,22 +123,32 @@ namespace WindowsFormsApp1
             
         }
 
+
+
         private void display()   //显示所有学生信息
         {
             LinkedListNode<Student> linkNodeStudent = linkListStudent.First;
             if (Student.sumNum == 0)
             {
-                Console.WriteLine("当前无学生");
+                //Console.WriteLine("当前无学生");
+                listBox2.Items.Clear();
+                listBox2.Items.Add("当前无学生");
             }
             else
             {
-                Console.WriteLine("当前学生总数为:"+Student.sumNum);
-                linkNodeStudent.Value.showInfo();
-                while (linkNodeStudent.Next != null)
+                //Console.WriteLine("当前学生总数为:"+Student.sumNum);
+                listBox2.Items.Clear();
+                listBox2.Items.Add("当前学生总数为:" + Student.sumNum);
+                listBox2.Items.Add("no"+"\t"+"name"+"\t"+"deg"+"\t"+"sex"+" \t"+"grade");
+                //linkNodeStudent.Value.showInfo();
+                while (linkNodeStudent!= null)
                 {
-
-                    linkNodeStudent = linkNodeStudent.Next;
+                    var value = linkNodeStudent.Value;
                     linkNodeStudent.Value.showInfo();
+                    listBox2.Items.Add(value.no+ "\t" + value.name+ "\t" + value.deg + "\t"
+                                        + value.sex + "\t" + value.grade); 
+                    linkNodeStudent = linkNodeStudent.Next;
+                    
                 }
             }
             
@@ -173,7 +184,33 @@ namespace WindowsFormsApp1
         private float getAverage()  //获取所有学生的平均分
         {
             float average =(Student.sumNum==0) ? 0 : (Student.sumDeg/Student.sumNum) ;
-            return (average);
+            string.Format("{0:F}", average);
+            return average;
+        }
+
+        private void searchNo(TextBox textBox)
+        {
+            if (Student.sumNum == 0)
+            {
+                listBox2.Items.Add("当前无学生");
+            }
+            else
+            {
+                LinkedListNode<Student> prev = linkListStudent.First;
+                while (prev != null)
+                {
+                    if (textBox.Text == prev.Value.no)
+                    {
+                        var value = prev.Value;
+                        listBox1.Items.Add("查找学号为"+textBox.Text+"的学生");
+                        listBox2.Items.Clear();
+                        listBox2.Items.Add("查找结果如下：");
+                        listBox2.Items.Add("no:" + value.no +"\t"+ "name:" + value.name +"\t"+ "deg:" + value.deg +"\t"+
+                                        "sex:" + value.sex + "\t"+"grade:" + value.grade);
+                    }
+                    prev = prev.Next;
+                }
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e) //首先在主窗体添加定时事件
@@ -298,7 +335,9 @@ namespace WindowsFormsApp1
 
         private void button6_Click(object sender, EventArgs e)
         {
-            Console.WriteLine("学生的平均分数:" + getAverage());
+            listBox2.Items.Clear();
+            //Console.WriteLine("学生的平均分数:" + getAverage());
+            listBox2.Items.Add("学生的平均分数:" + string.Format("{0:F}", getAverage()));
         }
 
         private void label6_Click(object sender, EventArgs e)
@@ -306,25 +345,30 @@ namespace WindowsFormsApp1
 
         }
 
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
         private void button7_Click(object sender, EventArgs e)
         {
-            
-            //saveInfo();
+            setPanelUnvisible();
+            panel2.Visible = true;
+        }
+
+        private void panel2_Paint_1(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
             
         }
 
         private void button8_Click(object sender, EventArgs e)
         {
-            //readInfo();
-            //Form form2 = new Form();
-            //new Form2().ShowDialog();
-            
-            
-        }
-
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
+            searchNo(textBox5);
         }
     }
     public class Student
@@ -381,6 +425,7 @@ namespace WindowsFormsApp1
         public void showInfo()  //展示学生信息
         {
             Console.WriteLine(no +"  "+ name+"  " + deg+" "+ sex +" " + grade);
+            
         }
     }
 }

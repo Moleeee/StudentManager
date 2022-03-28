@@ -32,6 +32,7 @@ namespace WindowsFormsApp1
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
@@ -57,10 +58,15 @@ namespace WindowsFormsApp1
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.label6 = new System.Windows.Forms.Label();
             this.listBox1 = new System.Windows.Forms.ListBox();
+            this.listBox2 = new System.Windows.Forms.ListBox();
             this.button7 = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.button8 = new System.Windows.Forms.Button();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -236,18 +242,18 @@ namespace WindowsFormsApp1
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(243, 112);
+            this.button5.Location = new System.Drawing.Point(171, 127);
             this.button5.Margin = new System.Windows.Forms.Padding(4);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(100, 29);
             this.button5.TabIndex = 2;
-            this.button5.Text = "确认";
+            this.button5.Text = "删除";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(196, 58);
+            this.textBox4.Location = new System.Drawing.Point(163, 16);
             this.textBox4.Margin = new System.Windows.Forms.Padding(4);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(200, 25);
@@ -256,12 +262,12 @@ namespace WindowsFormsApp1
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(45, 61);
+            this.label5.Location = new System.Drawing.Point(64, 22);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(135, 15);
+            this.label5.Size = new System.Drawing.Size(75, 15);
             this.label5.TabIndex = 0;
-            this.label5.Text = "输入要删除的学号:";
+            this.label5.Text = "删除学号:";
             this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // button3
@@ -288,7 +294,7 @@ namespace WindowsFormsApp1
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(17, 210);
+            this.button6.Location = new System.Drawing.Point(16, 210);
             this.button6.Margin = new System.Windows.Forms.Padding(4);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(163, 29);
@@ -327,43 +333,78 @@ namespace WindowsFormsApp1
             this.listBox1.Location = new System.Drawing.Point(645, 32);
             this.listBox1.Margin = new System.Windows.Forms.Padding(4);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(542, 529);
+            this.listBox1.Size = new System.Drawing.Size(542, 214);
             this.listBox1.TabIndex = 11;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
+            // listBox2
+            // 
+            this.listBox2.FormattingEnabled = true;
+            this.listBox2.ItemHeight = 15;
+            this.listBox2.Location = new System.Drawing.Point(645, 298);
+            this.listBox2.Name = "listBox2";
+            this.listBox2.Size = new System.Drawing.Size(542, 259);
+            this.listBox2.TabIndex = 14;
+            // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(19, 269);
-            this.button7.Margin = new System.Windows.Forms.Padding(4);
+            this.button7.Location = new System.Drawing.Point(16, 264);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(100, 29);
-            this.button7.TabIndex = 12;
-            this.button7.Text = "save";
+            this.button7.Size = new System.Drawing.Size(163, 28);
+            this.button7.TabIndex = 15;
+            this.button7.Text = "查找学生信息";
             this.button7.UseVisualStyleBackColor = true;
-            this.button7.Visible = false;
             this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.button8);
+            this.panel2.Controls.Add(this.textBox5);
+            this.panel2.Controls.Add(this.label9);
+            this.panel2.Location = new System.Drawing.Point(196, 32);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(445, 260);
+            this.panel2.TabIndex = 16;
+            this.panel2.Visible = false;
+            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint_1);
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(19, 326);
-            this.button8.Margin = new System.Windows.Forms.Padding(4);
+            this.button8.Location = new System.Drawing.Point(169, 157);
             this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(100, 29);
-            this.button8.TabIndex = 13;
-            this.button8.Text = "read";
+            this.button8.Size = new System.Drawing.Size(75, 23);
+            this.button8.TabIndex = 2;
+            this.button8.Text = "查找";
             this.button8.UseVisualStyleBackColor = true;
-            this.button8.Visible = false;
             this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(149, 55);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(171, 25);
+            this.textBox5.TabIndex = 1;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(52, 61);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(82, 15);
+            this.label9.TabIndex = 0;
+            this.label9.Text = "查找学号：";
+            this.label9.Click += new System.EventHandler(this.label9_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1200, 562);
+            this.ClientSize = new System.Drawing.Size(1191, 562);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel3);
-            this.Controls.Add(this.button8);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.button7);
+            this.Controls.Add(this.listBox2);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.labelDate);
@@ -372,6 +413,7 @@ namespace WindowsFormsApp1
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "学生管理系统";
@@ -379,6 +421,8 @@ namespace WindowsFormsApp1
             this.panel1.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -410,12 +454,16 @@ namespace WindowsFormsApp1
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button8;
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.TextBox textBox5;
     }
 }
 
