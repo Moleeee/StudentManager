@@ -72,7 +72,7 @@ namespace WindowsFormsApp1
                 linkListStudent.AddLast(p);
                 //addRecord(true, linkListStudent.Last);
             }
-            listBox1.Items.Add("文件读取成功");
+            listBoxHistory.Items.Add("文件读取成功");
 
             /*while (line != null)
             {
@@ -86,9 +86,9 @@ namespace WindowsFormsApp1
 
         private void setPanelUnvisible()    //隐藏面板，用于不同面板切换
         {
-            panel1.Visible = false;
-            panel2.Visible = false;
-            panel3.Visible = false;
+            panelAddSinfo.Visible = false;
+            panelSearchSinfo.Visible = false;
+            panelDelSinfo.Visible = false;
         }
 
         private bool isNoDifferent(TextBox no)  //判断学号是否重复
@@ -110,9 +110,9 @@ namespace WindowsFormsApp1
         private void addStudent()   //添加学生
         {
             LinkedListNode<Student> prev = linkListStudent.First;
-            if (isNoDifferent(textBox1))
+            if (isNoDifferent(textBoxSno))
             {
-                p = new Student(textBox1,textBox2,textBox3,comboBox2,comboBox1);
+                p = new Student(textBoxSno,textBoxSname,textBoxSdeg,comboBoxSsex,comboBoxSgrade);
                 linkListStudent.AddLast(p);
                 addRecord(true,linkListStudent.Last);
             }
@@ -123,29 +123,27 @@ namespace WindowsFormsApp1
             
         }
 
-
-
         private void display()   //显示所有学生信息
         {
             LinkedListNode<Student> linkNodeStudent = linkListStudent.First;
             if (Student.sumNum == 0)
             {
                 //Console.WriteLine("当前无学生");
-                listBox2.Items.Clear();
-                listBox2.Items.Add("当前无学生");
+                listBoxShow.Items.Clear();
+                listBoxShow.Items.Add("当前无学生");
             }
             else
             {
                 //Console.WriteLine("当前学生总数为:"+Student.sumNum);
-                listBox2.Items.Clear();
-                listBox2.Items.Add("当前学生总数为:" + Student.sumNum);
-                listBox2.Items.Add("no"+"\t"+"name"+"\t"+"deg"+"\t"+"sex"+" \t"+"grade");
+                listBoxShow.Items.Clear();
+                listBoxShow.Items.Add("当前学生总数为:" + Student.sumNum);
+                listBoxShow.Items.Add("no"+"\t"+"name"+"\t"+"deg"+"\t"+"sex"+" \t"+"grade");
                 //linkNodeStudent.Value.showInfo();
                 while (linkNodeStudent!= null)
                 {
                     var value = linkNodeStudent.Value;
                     linkNodeStudent.Value.showInfo();
-                    listBox2.Items.Add(value.no+ "\t" + value.name+ "\t" + value.deg + "\t"
+                    listBoxShow.Items.Add(value.no+ "\t" + value.name+ "\t" + value.deg + "\t"
                                         + value.sex + "\t" + value.grade); 
                     linkNodeStudent = linkNodeStudent.Next;
                     
@@ -192,7 +190,7 @@ namespace WindowsFormsApp1
         {
             if (Student.sumNum == 0)
             {
-                listBox2.Items.Add("当前无学生");
+                listBoxShow.Items.Add("当前无学生");
             }
             else
             {
@@ -202,10 +200,10 @@ namespace WindowsFormsApp1
                     if (textBox.Text == prev.Value.no)
                     {
                         var value = prev.Value;
-                        listBox1.Items.Add("查找学号为"+textBox.Text+"的学生");
-                        listBox2.Items.Clear();
-                        listBox2.Items.Add("查找结果如下：");
-                        listBox2.Items.Add("no:" + value.no +"\t"+ "name:" + value.name +"\t"+ "deg:" + value.deg +"\t"+
+                        listBoxHistory.Items.Add("查找学号为"+textBox.Text+"的学生");
+                        listBoxShow.Items.Clear();
+                        listBoxShow.Items.Add("查找结果如下：");
+                        listBoxShow.Items.Add("no:" + value.no +"\t"+ "name:" + value.name +"\t"+ "deg:" + value.deg +"\t"+
                                         "sex:" + value.sex + "\t"+"grade:" + value.grade);
                     }
                     prev = prev.Next;
@@ -220,7 +218,6 @@ namespace WindowsFormsApp1
             labelDate.Text = DateTime.Now.ToString();
         }
 
-
         private void timer1_Tick(object sender, EventArgs e)    //接着在定时器触发事件中添加获取时间和显示时间函数
         {
             DateTime time = DateTime.Now;       //获取当前时间
@@ -234,70 +231,29 @@ namespace WindowsFormsApp1
             {
                 /*this.listBox1.Items.Add("添加了学号为"+this.textBox1.Text+
                     "  姓名为"+this.textBox2.Text+"的学生");*/
-                this.listBox1.Items.Add(labelDate.Text+"添加了学号为" + node.Value.no +
+                this.listBoxHistory.Items.Add(labelDate.Text+"添加了学号为" + node.Value.no +
                     ",姓名为" + node.Value.name + "的学生");
                 
             }
             else
             {
-                this.listBox1.Items.Add(labelDate.Text+"删除了学号为" + node.Value.no +
+                this.listBoxHistory.Items.Add(labelDate.Text+"删除了学号为" + node.Value.no +
                     ",姓名为" + node.Value.name + "的学生");
             }
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonAddSinfo_Click(object sender, EventArgs e)
         {
             setPanelUnvisible();
-            this.panel1.Visible = true;
+            this.panelAddSinfo.Visible = true;
         }
 
-        private void progressBar1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button2_Click(object sender, EventArgs e)
+        private void buttonAddConfirm_Click(object sender, EventArgs e)
         {
             addStudent();
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void buttonAllSinfo_Click(object sender, EventArgs e)
         {
             display();
             
@@ -311,65 +267,36 @@ namespace WindowsFormsApp1
             }
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void buttonDelSinfo_Click(object sender, EventArgs e)
         {
             setPanelUnvisible();
             //panel2.Visible = false;
-            panel3.Visible = true;
+            panelDelSinfo.Visible = true;
         }
 
-        private void label5_Click(object sender, EventArgs e)
+        private void buttonDelConfirm_Click(object sender, EventArgs e)
         {
-
+            delStudent(textBoxDel);
         }
-
-        private void button5_Click(object sender, EventArgs e)
+        
+        private void buttonGetSAverage_Click(object sender, EventArgs e)
         {
-            delStudent(textBox4);
-        }
-
-        private void panel3_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void button6_Click(object sender, EventArgs e)
-        {
-            listBox2.Items.Clear();
+            listBoxShow.Items.Clear();
             //Console.WriteLine("学生的平均分数:" + getAverage());
-            listBox2.Items.Add("学生的平均分数:" + string.Format("{0:F}", getAverage()));
+            listBoxShow.Items.Add("学生的平均分数:" + string.Format("{0:F}", getAverage()));
         }
 
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button7_Click(object sender, EventArgs e)
+        private void buttonSearchSinfo_Click(object sender, EventArgs e)
         {
             setPanelUnvisible();
-            panel2.Visible = true;
+            panelSearchSinfo.Visible = true;
         }
 
-        private void panel2_Paint_1(object sender, PaintEventArgs e)
+        private void buttonSearch_Click(object sender, EventArgs e)
         {
-
+            searchNo(textSearch);
         }
 
-        private void label9_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void button8_Click(object sender, EventArgs e)
-        {
-            searchNo(textBox5);
-        }
     }
     public class Student
     {
