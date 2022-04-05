@@ -13,6 +13,7 @@ using Microsoft.Win32.SafeHandles;
 using Sql_Read_Show_;
 using System.Runtime.CompilerServices;
 using Org.BouncyCastle.Crypto.Engines;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 
 namespace WindowsFormsApp1
 {
@@ -121,8 +122,11 @@ namespace WindowsFormsApp1
 
                         });
                     }
+                    dataReader.Close();
+                    
                 }
-
+                dataReader.Close();
+                Console.WriteLine(dataReader.IsClosed);
                 //dataGridView1.DataSource = admins;
 
             }
@@ -133,7 +137,12 @@ namespace WindowsFormsApp1
             finally
             {
                 conn.Close();
+                Console.WriteLine("conn close");
+                
             }
+            Console.WriteLine(conn.State);
+            conn.Close();
+            
         }
         
         private void ChangePas()
@@ -167,7 +176,13 @@ namespace WindowsFormsApp1
                     finally
                     {
                         conn.Close();
+                        Console.WriteLine("close conn");
                     }
+                    conn.Close();
+                }
+                else
+                {
+                    MessageBox.Show("密码错误");
                 }
             }
         }
@@ -185,6 +200,11 @@ namespace WindowsFormsApp1
         private void BtnBackToLog_Click(object sender, EventArgs e)
         {
             this.panelChangePas.Visible = false;
+        }
+
+        private void LoginForm01_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

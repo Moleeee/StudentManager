@@ -33,8 +33,8 @@ namespace WindowsFormsApp1
             this.textBoxAccount = new System.Windows.Forms.TextBox();
             this.textBoxPassword = new System.Windows.Forms.TextBox();
             this.BtnLogin = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.labelAcc = new System.Windows.Forms.Label();
+            this.labelPas = new System.Windows.Forms.Label();
             this.linkLabelChangePas = new System.Windows.Forms.LinkLabel();
             this.panelChangePas = new System.Windows.Forms.Panel();
             this.labelChangeAccount = new System.Windows.Forms.Label();
@@ -74,23 +74,23 @@ namespace WindowsFormsApp1
             this.BtnLogin.UseVisualStyleBackColor = true;
             this.BtnLogin.Click += new System.EventHandler(this.BtnLogin_Click);
             // 
-            // label1
+            // labelAcc
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(242, 95);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(37, 15);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "账号";
+            this.labelAcc.AutoSize = true;
+            this.labelAcc.Location = new System.Drawing.Point(242, 95);
+            this.labelAcc.Name = "labelAcc";
+            this.labelAcc.Size = new System.Drawing.Size(37, 15);
+            this.labelAcc.TabIndex = 3;
+            this.labelAcc.Text = "账号";
             // 
-            // label2
+            // labelPas
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(242, 156);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(37, 15);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "密码";
+            this.labelPas.AutoSize = true;
+            this.labelPas.Location = new System.Drawing.Point(242, 156);
+            this.labelPas.Name = "labelPas";
+            this.labelPas.Size = new System.Drawing.Size(37, 15);
+            this.labelPas.TabIndex = 4;
+            this.labelPas.Text = "密码";
             // 
             // linkLabelChangePas
             // 
@@ -113,7 +113,7 @@ namespace WindowsFormsApp1
             this.panelChangePas.Controls.Add(this.textBoxOldPas);
             this.panelChangePas.Controls.Add(this.labelNewPas);
             this.panelChangePas.Controls.Add(this.labelOldPas);
-            this.panelChangePas.Location = new System.Drawing.Point(245, 81);
+            this.panelChangePas.Location = new System.Drawing.Point(245, 85);
             this.panelChangePas.Name = "panelChangePas";
             this.panelChangePas.Size = new System.Drawing.Size(316, 178);
             this.panelChangePas.TabIndex = 6;
@@ -194,8 +194,8 @@ namespace WindowsFormsApp1
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.panelChangePas);
             this.Controls.Add(this.linkLabelChangePas);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelPas);
+            this.Controls.Add(this.labelAcc);
             this.Controls.Add(this.BtnLogin);
             this.Controls.Add(this.textBoxPassword);
             this.Controls.Add(this.textBoxAccount);
@@ -214,8 +214,8 @@ namespace WindowsFormsApp1
         private System.Windows.Forms.TextBox textBoxAccount;
         private System.Windows.Forms.TextBox textBoxPassword;
         private System.Windows.Forms.Button BtnLogin;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label labelAcc;
+        private System.Windows.Forms.Label labelPas;
         private System.Windows.Forms.LinkLabel linkLabelChangePas;
         private System.Windows.Forms.Panel panelChangePas;
         private System.Windows.Forms.Button BtnChangeConfirm;

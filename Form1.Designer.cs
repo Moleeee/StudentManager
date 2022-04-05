@@ -62,11 +62,18 @@ namespace WindowsFormsApp1
             this.buttonSearchSinfo = new System.Windows.Forms.Button();
             this.panelSearchSinfo = new System.Windows.Forms.Panel();
             this.buttonSearchConfirm = new System.Windows.Forms.Button();
-            this.textSearch = new System.Windows.Forms.TextBox();
+            this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.labelSearch = new System.Windows.Forms.Label();
+            this.dataGridViewShow = new System.Windows.Forms.DataGridView();
+            this.stuinfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.adminDataSet = new WindowsFormsApp1.AdminDataSet();
+            this.stuinfoTableAdapter = new WindowsFormsApp1.AdminDataSetTableAdapters.stuinfoTableAdapter();
             this.panelAddSinfo.SuspendLayout();
             this.panelDelSinfo.SuspendLayout();
             this.panelSearchSinfo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewShow)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.stuinfoBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.adminDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonAddSinfo
@@ -321,6 +328,7 @@ namespace WindowsFormsApp1
             // 
             // listBoxHistory
             // 
+            this.listBoxHistory.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.listBoxHistory.FormattingEnabled = true;
             this.listBoxHistory.ItemHeight = 15;
             this.listBoxHistory.Location = new System.Drawing.Point(645, 32);
@@ -351,7 +359,7 @@ namespace WindowsFormsApp1
             // panelSearchSinfo
             // 
             this.panelSearchSinfo.Controls.Add(this.buttonSearchConfirm);
-            this.panelSearchSinfo.Controls.Add(this.textSearch);
+            this.panelSearchSinfo.Controls.Add(this.textBoxSearch);
             this.panelSearchSinfo.Controls.Add(this.labelSearch);
             this.panelSearchSinfo.Location = new System.Drawing.Point(192, 28);
             this.panelSearchSinfo.Name = "panelSearchSinfo";
@@ -367,14 +375,14 @@ namespace WindowsFormsApp1
             this.buttonSearchConfirm.TabIndex = 2;
             this.buttonSearchConfirm.Text = "查找";
             this.buttonSearchConfirm.UseVisualStyleBackColor = true;
-            this.buttonSearchConfirm.Click += new System.EventHandler(this.buttonSearch_Click);
+            this.buttonSearchConfirm.Click += new System.EventHandler(this.buttonSearchConfirm_Click);
             // 
-            // textSearch
+            // textBoxSearch
             // 
-            this.textSearch.Location = new System.Drawing.Point(149, 55);
-            this.textSearch.Name = "textSearch";
-            this.textSearch.Size = new System.Drawing.Size(171, 25);
-            this.textSearch.TabIndex = 1;
+            this.textBoxSearch.Location = new System.Drawing.Point(149, 55);
+            this.textBoxSearch.Name = "textBoxSearch";
+            this.textBoxSearch.Size = new System.Drawing.Size(171, 25);
+            this.textBoxSearch.TabIndex = 1;
             // 
             // labelSearch
             // 
@@ -385,16 +393,44 @@ namespace WindowsFormsApp1
             this.labelSearch.TabIndex = 0;
             this.labelSearch.Text = "查找学号：";
             // 
+            // dataGridViewShow
+            // 
+            this.dataGridViewShow.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewShow.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
+            this.dataGridViewShow.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewShow.Location = new System.Drawing.Point(645, 298);
+            this.dataGridViewShow.Name = "dataGridViewShow";
+            this.dataGridViewShow.RowHeadersVisible = false;
+            this.dataGridViewShow.RowHeadersWidth = 51;
+            this.dataGridViewShow.RowTemplate.Height = 27;
+            this.dataGridViewShow.Size = new System.Drawing.Size(540, 260);
+            this.dataGridViewShow.TabIndex = 17;
+            // 
+            // stuinfoBindingSource
+            // 
+            this.stuinfoBindingSource.DataMember = "stuinfo";
+            this.stuinfoBindingSource.DataSource = this.adminDataSet;
+            // 
+            // adminDataSet
+            // 
+            this.adminDataSet.DataSetName = "AdminDataSet";
+            this.adminDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // stuinfoTableAdapter
+            // 
+            this.stuinfoTableAdapter.ClearBeforeFill = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1191, 562);
             this.Controls.Add(this.panelSearchSinfo);
+            this.Controls.Add(this.dataGridViewShow);
+            this.Controls.Add(this.panelAddSinfo);
             this.Controls.Add(this.panelDelSinfo);
             this.Controls.Add(this.buttonSearchSinfo);
             this.Controls.Add(this.listBoxShow);
-            this.Controls.Add(this.panelAddSinfo);
             this.Controls.Add(this.listBoxHistory);
             this.Controls.Add(this.labelHistory);
             this.Controls.Add(this.labelDate);
@@ -407,12 +443,16 @@ namespace WindowsFormsApp1
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "学生管理系统";
+            this.Load += new System.EventHandler(this.Form1_Load_1);
             this.panelAddSinfo.ResumeLayout(false);
             this.panelAddSinfo.PerformLayout();
             this.panelDelSinfo.ResumeLayout(false);
             this.panelDelSinfo.PerformLayout();
             this.panelSearchSinfo.ResumeLayout(false);
             this.panelSearchSinfo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewShow)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.stuinfoBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.adminDataSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -453,7 +493,11 @@ namespace WindowsFormsApp1
         private System.Windows.Forms.Panel panelSearchSinfo;
         private System.Windows.Forms.Label labelSearch;
         private System.Windows.Forms.Button buttonSearchConfirm;
-        private System.Windows.Forms.TextBox textSearch;
+        private System.Windows.Forms.TextBox textBoxSearch;
+        private System.Windows.Forms.DataGridView dataGridViewShow;
+        private AdminDataSet adminDataSet;
+        private System.Windows.Forms.BindingSource stuinfoBindingSource;
+        private AdminDataSetTableAdapters.stuinfoTableAdapter stuinfoTableAdapter;
     }
 }
 
