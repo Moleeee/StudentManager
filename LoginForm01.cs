@@ -22,23 +22,25 @@ namespace WindowsFormsApp1
         public LoginForm01()
         {
             InitializeComponent();
-            this.Load += ConnectMySQL;
+            this.Load += CreateMysqlDB; //创建名为Admin的数据库
+            this.Load += CreatTable;    //创建存储初始账户的表
+            this.Load += ConnectMySQL;  //连接数据库，获取初始账户信息
         }
 
-        List<Admin> admins = new List<Admin>(); //新建一个数据集合，实例化
+        List<Admin> admins = new List<Admin>(); //新建一个存储管理员账户的数据集合，实例化
 
-        public bool closeFlag=true;
+        public bool closeFlag = false;//监测登录页面是否关闭
 
-        //string acc01 = "2020";
-        //string pas01 = "bupt";
+        /*初始账户:2020
+          初始密码:bupt*/
 
-        private void Login(TextBox acc,TextBox pas)
+        private void Login(TextBox acc, TextBox pas)
         {
             /*if ((acc.Text == acc01) && (pas.Text == pas01))
             {
                 //Form form1=new Form1();
                 //form1.Show();
-                closeFlag = false;
+                closeFlag = true;
                 this.Close();
             }
             else
@@ -46,11 +48,11 @@ namespace WindowsFormsApp1
                 MessageBox.Show("账号密码错误");
             }*/
 
-            for(int i = 0; i < admins.Count; i++)
+            for (int i = 0; i < admins.Count; i++)
             {
                 if ((acc.Text == admins[i].Account) && (pas.Text == admins[i].Password))
                 {
-                    closeFlag = false;
+                    closeFlag = true;
                     this.Close();
                 }
                 else
@@ -63,7 +65,7 @@ namespace WindowsFormsApp1
 
         private void BtnLogin_Click(object sender, EventArgs e)
         {
-            Login(textBoxAccount,textBoxPassword);
+            Login(textBoxAccount, textBoxPassword);
         }
 
         private void ConnectMySQL(object sender, EventArgs e)
@@ -81,7 +83,14 @@ namespace WindowsFormsApp1
             {
                 conn.Open();
                 string version = conn.ServerVersion;
-                Console.WriteLine("已经建立连接"+version);
+                Console.WriteLine("已经建立连接" + version);
+
+                #region 注释
+                //创建数据库
+                /*string cdb = "create database AAA;";
+                MySqlCommand createdb = new MySqlCommand(cdb, conn);
+                createdb.ExecuteNonQuery();
+                Console.WriteLine("创建数据库成功");*/
 
                 //在这里写增删改查语句
 
@@ -93,19 +102,20 @@ namespace WindowsFormsApp1
                 // 执行MySQL语句进行插入
                 //mySqlCommand.ExecuteNonQuery();
 
-                //string sql = "CREATE TABLE " + "WRA1" + "(Type char(20),DIST1 float(16,2),DIST2 float(16,2),DIST3 float(16,2),DIST4 float(16,2))";//表名+字段1,字段2,字段3
+                //string sql = "CREATE TABLE " + "teinfo" + "(Type char(20),DIST1 float(16,2),DIST2 float(16,2),DIST3 float(16,2),DIST4 float(16,2))";//表名+字段1,字段2,字段3
                 //MySqlCommand cmd = new MySqlCommand(sql, conn);
                 //cmd.ExecuteNonQuery();
                 //MessageBox.Show("表创建成功！");
                 //string Type = "BEEFY TT180-5";
                 //string DIST1 = "12351", DIST2 = "12451", DIST3 = "13451", DIST4 = "12351";
-                //string ins = "insert into WRA1(Type,DIST1,DIST2,DIST3,DIST4)values('" + Type + "','" + DIST1 + "','" + DIST2 + "','" + DIST3 + "','" + DIST4 + "')";
+                //string ins = "insert into teinfo(Type,DIST1,DIST2,DIST3,DIST4)values('" + Type + "','" + DIST1 + "','" + DIST2 + "','" + DIST3 + "','" + DIST4 + "')";
                 //MySqlCommand cmd1 = new MySqlCommand(ins, conn);
                 //cmd1.ExecuteNonQuery();
                 //MessageBox.Show("插入成功");
+                #endregion
 
                 //List<Admin> admins = new List<Admin>(); //新建一个数据集合，实例化
-                string query = "select * from WRA1";  //sql查询语句
+                string query = "select * from teinfo";  //sql查询语句
                 MySqlCommand cmd = new MySqlCommand(query, conn);    //将查询语句放进该数据库容器中
                 MySqlDataReader dataReader = cmd.ExecuteReader();   //创建一个实例保存查询出来的结构                              
                 if (dataReader.HasRows) //判断有没有读取到数据，实际是判断有没有读取到行数据，可以不写
@@ -123,33 +133,34 @@ namespace WindowsFormsApp1
                         });
                     }
                     dataReader.Close();
-                    
+
                 }
                 dataReader.Close();
-                Console.WriteLine(dataReader.IsClosed);
+                //Console.WriteLine(dataReader.IsClosed);
                 //dataGridView1.DataSource = admins;
 
             }
-            catch (MySqlException error)
+            catch
             {
-                Console.WriteLine(error.Message);
+
+                Console.WriteLine("error");
             }
             finally
             {
                 conn.Close();
-                Console.WriteLine("conn close");
-                
+                //Console.WriteLine("conn close");
+
             }
-            Console.WriteLine(conn.State);
+            //Console.WriteLine(conn.State);
             conn.Close();
-            
+
         }
-        
+
         private void ChangePas()
         {
-            for(int i = 0; i < admins.Count; i++)
+            for (int i = 0; i < admins.Count; i++)
             {
-                if ((textBoxChangeAccount.Text==admins[i].Account)&&(textBoxOldPas.Text == admins[i].Password))
+                if ((textBoxChangeAccount.Text == admins[i].Account) && (textBoxOldPas.Text == admins[i].Password))
                 {
                     Console.WriteLine("1");
                     String connetStr = "server=localhost;" +
@@ -163,7 +174,7 @@ namespace WindowsFormsApp1
                     {
                         conn.Open();
                         //更新密码
-                        string updatePas = "update wra1 set Password = '" + textBoxNewPas.Text + "' where Account = " + textBoxChangeAccount.Text;
+                        string updatePas = "update teinfo set Password = '" + textBoxNewPas.Text + "' where Account = " + textBoxChangeAccount.Text;
                         MySqlCommand cmd = new MySqlCommand(updatePas, conn);
                         cmd.ExecuteNonQuery();
                         admins[i].Password = textBoxNewPas.Text;
@@ -206,15 +217,90 @@ namespace WindowsFormsApp1
         {
 
         }
+
+        private void textBoxChangeAccount_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        public static void CreateMysqlDB(object sender, EventArgs e)
+        {
+            MySqlConnection conn = new MySqlConnection("Data Source=localhost;" +
+                                                        "port=3307;" +
+                                                        "UserId=root;" +
+                                                        " PWD=dyinglight77...");
+            MySqlCommand cmd = new MySqlCommand("CREATE DATABASE Admin;", conn);
+
+            conn.Open();
+
+            //防止第二次启动时再次新建数据库
+            try
+            {
+                cmd.ExecuteNonQuery();
+                conn.Close();
+                Console.WriteLine("建立数据库成功");
+
+            }
+            catch (Exception)
+            {
+                conn.Close();
+                Console.WriteLine("建立数据库失败，已存在了");
+                //throw;
+            }
+            //防止第二次启动时再次新建数据库
+            finally
+            {
+
+            }
+        }
+
+        public void CreatTable(object sender, EventArgs e)
+        {
+            MySqlConnection conn_1 = new MySqlConnection("Data Source=localhost;" +
+                                                        "port=3307;" +
+                                                        "user=root;" +
+                                                        " password=dyinglight77...;" +
+                                                        "database=Admin");
+            try
+            {
+                conn_1.Open();
+                //建表
+                string createTable = "create table teinfo(Account varchar(10) NOT NULL,Password varchar(20))";
+                MySqlCommand cmd1 = new MySqlCommand(createTable, conn_1);
+                cmd1.ExecuteNonQuery();
+                Console.WriteLine("建表成功");
+
+                //在表中写入初始密码
+                string iniAccount = "2020";
+                string iniPassword = "bupt";
+                string iniInfo= "insert into teinfo(Account,Password)" +
+                            "values('" + iniAccount + "','" + iniPassword + "')";
+                MySqlCommand cmd2 = new MySqlCommand(iniInfo, conn_1);
+                cmd2.ExecuteNonQuery();
+
+            }
+            catch
+            {
+                Console.WriteLine("表已存在");
+                //throw;
+            }
+            finally
+            {
+                conn_1.Close();
+            }
+
+        }
+
+
+
     }
 }
-
-namespace Sql_Read_Show_
-{
-    public partial class Admin
+    namespace Sql_Read_Show_
     {
-        public string Account { get; set; }
-        public string Password { get; set; }
+        public partial class Admin
+        {
+            public string Account { get; set; }
+            public string Password { get; set; }
 
+        }
     }
-}

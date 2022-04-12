@@ -50,25 +50,28 @@ namespace WindowsFormsApp1
             // 
             // textBoxAccount
             // 
-            this.textBoxAccount.Location = new System.Drawing.Point(308, 85);
+            this.textBoxAccount.Location = new System.Drawing.Point(231, 68);
+            this.textBoxAccount.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBoxAccount.Name = "textBoxAccount";
-            this.textBoxAccount.Size = new System.Drawing.Size(193, 25);
+            this.textBoxAccount.Size = new System.Drawing.Size(146, 21);
             this.textBoxAccount.TabIndex = 0;
             this.textBoxAccount.Text = "2020";
             // 
             // textBoxPassword
             // 
-            this.textBoxPassword.Location = new System.Drawing.Point(308, 146);
+            this.textBoxPassword.Location = new System.Drawing.Point(231, 117);
+            this.textBoxPassword.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBoxPassword.Name = "textBoxPassword";
-            this.textBoxPassword.Size = new System.Drawing.Size(193, 25);
+            this.textBoxPassword.Size = new System.Drawing.Size(146, 21);
             this.textBoxPassword.TabIndex = 1;
             this.textBoxPassword.Text = "bupt";
             // 
             // BtnLogin
             // 
-            this.BtnLogin.Location = new System.Drawing.Point(367, 200);
+            this.BtnLogin.Location = new System.Drawing.Point(275, 160);
+            this.BtnLogin.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.BtnLogin.Name = "BtnLogin";
-            this.BtnLogin.Size = new System.Drawing.Size(75, 31);
+            this.BtnLogin.Size = new System.Drawing.Size(56, 25);
             this.BtnLogin.TabIndex = 2;
             this.BtnLogin.Text = "登录";
             this.BtnLogin.UseVisualStyleBackColor = true;
@@ -77,28 +80,31 @@ namespace WindowsFormsApp1
             // labelAcc
             // 
             this.labelAcc.AutoSize = true;
-            this.labelAcc.Location = new System.Drawing.Point(242, 95);
+            this.labelAcc.Location = new System.Drawing.Point(182, 76);
+            this.labelAcc.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelAcc.Name = "labelAcc";
-            this.labelAcc.Size = new System.Drawing.Size(37, 15);
+            this.labelAcc.Size = new System.Drawing.Size(33, 13);
             this.labelAcc.TabIndex = 3;
             this.labelAcc.Text = "账号";
             // 
             // labelPas
             // 
             this.labelPas.AutoSize = true;
-            this.labelPas.Location = new System.Drawing.Point(242, 156);
+            this.labelPas.Location = new System.Drawing.Point(182, 125);
+            this.labelPas.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelPas.Name = "labelPas";
-            this.labelPas.Size = new System.Drawing.Size(37, 15);
+            this.labelPas.Size = new System.Drawing.Size(33, 13);
             this.labelPas.TabIndex = 4;
             this.labelPas.Text = "密码";
             // 
             // linkLabelChangePas
             // 
             this.linkLabelChangePas.AutoSize = true;
-            this.linkLabelChangePas.Location = new System.Drawing.Point(375, 244);
+            this.linkLabelChangePas.Location = new System.Drawing.Point(281, 195);
+            this.linkLabelChangePas.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.linkLabelChangePas.Name = "linkLabelChangePas";
-            this.linkLabelChangePas.Size = new System.Drawing.Size(67, 15);
-            this.linkLabelChangePas.TabIndex = 5;
+            this.linkLabelChangePas.Size = new System.Drawing.Size(59, 13);
+            this.linkLabelChangePas.TabIndex = 3;
             this.linkLabelChangePas.TabStop = true;
             this.linkLabelChangePas.Text = "修改密码";
             this.linkLabelChangePas.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelChangePas_LinkClicked);
@@ -113,85 +119,95 @@ namespace WindowsFormsApp1
             this.panelChangePas.Controls.Add(this.textBoxOldPas);
             this.panelChangePas.Controls.Add(this.labelNewPas);
             this.panelChangePas.Controls.Add(this.labelOldPas);
-            this.panelChangePas.Location = new System.Drawing.Point(245, 85);
+            this.panelChangePas.Location = new System.Drawing.Point(184, 65);
+            this.panelChangePas.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panelChangePas.Name = "panelChangePas";
-            this.panelChangePas.Size = new System.Drawing.Size(316, 178);
+            this.panelChangePas.Size = new System.Drawing.Size(242, 156);
             this.panelChangePas.TabIndex = 6;
             this.panelChangePas.Visible = false;
             // 
             // labelChangeAccount
             // 
             this.labelChangeAccount.AutoSize = true;
-            this.labelChangeAccount.Location = new System.Drawing.Point(17, 20);
+            this.labelChangeAccount.Location = new System.Drawing.Point(13, 16);
+            this.labelChangeAccount.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelChangeAccount.Name = "labelChangeAccount";
-            this.labelChangeAccount.Size = new System.Drawing.Size(37, 15);
+            this.labelChangeAccount.Size = new System.Drawing.Size(33, 13);
             this.labelChangeAccount.TabIndex = 6;
             this.labelChangeAccount.Text = "账号";
             // 
             // BtnBackToLog
             // 
-            this.BtnBackToLog.Location = new System.Drawing.Point(213, 144);
+            this.BtnBackToLog.Location = new System.Drawing.Point(151, 110);
+            this.BtnBackToLog.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.BtnBackToLog.Name = "BtnBackToLog";
-            this.BtnBackToLog.Size = new System.Drawing.Size(75, 23);
-            this.BtnBackToLog.TabIndex = 5;
+            this.BtnBackToLog.Size = new System.Drawing.Size(80, 23);
+            this.BtnBackToLog.TabIndex = 8;
             this.BtnBackToLog.Text = "返回登录";
             this.BtnBackToLog.UseVisualStyleBackColor = true;
             this.BtnBackToLog.Click += new System.EventHandler(this.BtnBackToLog_Click);
             // 
             // BtnChangeConfirm
             // 
-            this.BtnChangeConfirm.Location = new System.Drawing.Point(75, 144);
+            this.BtnChangeConfirm.Location = new System.Drawing.Point(64, 110);
+            this.BtnChangeConfirm.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.BtnChangeConfirm.Name = "BtnChangeConfirm";
-            this.BtnChangeConfirm.Size = new System.Drawing.Size(86, 23);
-            this.BtnChangeConfirm.TabIndex = 4;
+            this.BtnChangeConfirm.Size = new System.Drawing.Size(73, 23);
+            this.BtnChangeConfirm.TabIndex = 7;
             this.BtnChangeConfirm.Text = "确认修改";
             this.BtnChangeConfirm.UseVisualStyleBackColor = true;
             this.BtnChangeConfirm.Click += new System.EventHandler(this.BtnChangeConfirm_Click);
             // 
             // textBoxChangeAccount
             // 
-            this.textBoxChangeAccount.Location = new System.Drawing.Point(86, 17);
+            this.textBoxChangeAccount.Location = new System.Drawing.Point(64, 14);
+            this.textBoxChangeAccount.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBoxChangeAccount.Name = "textBoxChangeAccount";
-            this.textBoxChangeAccount.Size = new System.Drawing.Size(188, 25);
-            this.textBoxChangeAccount.TabIndex = 3;
+            this.textBoxChangeAccount.Size = new System.Drawing.Size(142, 21);
+            this.textBoxChangeAccount.TabIndex = 4;
+            this.textBoxChangeAccount.TextChanged += new System.EventHandler(this.textBoxChangeAccount_TextChanged);
             // 
             // textBoxNewPas
             // 
-            this.textBoxNewPas.Location = new System.Drawing.Point(86, 92);
+            this.textBoxNewPas.Location = new System.Drawing.Point(64, 74);
+            this.textBoxNewPas.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBoxNewPas.Name = "textBoxNewPas";
-            this.textBoxNewPas.Size = new System.Drawing.Size(188, 25);
-            this.textBoxNewPas.TabIndex = 3;
+            this.textBoxNewPas.Size = new System.Drawing.Size(142, 21);
+            this.textBoxNewPas.TabIndex = 6;
             // 
             // textBoxOldPas
             // 
-            this.textBoxOldPas.Location = new System.Drawing.Point(86, 57);
+            this.textBoxOldPas.Location = new System.Drawing.Point(64, 46);
+            this.textBoxOldPas.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBoxOldPas.Name = "textBoxOldPas";
-            this.textBoxOldPas.Size = new System.Drawing.Size(188, 25);
-            this.textBoxOldPas.TabIndex = 2;
+            this.textBoxOldPas.Size = new System.Drawing.Size(142, 21);
+            this.textBoxOldPas.TabIndex = 5;
             // 
             // labelNewPas
             // 
             this.labelNewPas.AutoSize = true;
-            this.labelNewPas.Location = new System.Drawing.Point(14, 96);
+            this.labelNewPas.Location = new System.Drawing.Point(10, 77);
+            this.labelNewPas.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelNewPas.Name = "labelNewPas";
-            this.labelNewPas.Size = new System.Drawing.Size(52, 15);
+            this.labelNewPas.Size = new System.Drawing.Size(46, 13);
             this.labelNewPas.TabIndex = 1;
             this.labelNewPas.Text = "新密码";
             // 
             // labelOldPas
             // 
             this.labelOldPas.AutoSize = true;
-            this.labelOldPas.Location = new System.Drawing.Point(14, 60);
+            this.labelOldPas.Location = new System.Drawing.Point(10, 48);
+            this.labelOldPas.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelOldPas.Name = "labelOldPas";
-            this.labelOldPas.Size = new System.Drawing.Size(52, 15);
+            this.labelOldPas.Size = new System.Drawing.Size(46, 13);
             this.labelOldPas.TabIndex = 0;
             this.labelOldPas.Text = "旧密码";
             // 
             // LoginForm01
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(600, 360);
             this.Controls.Add(this.panelChangePas);
             this.Controls.Add(this.linkLabelChangePas);
             this.Controls.Add(this.labelPas);
@@ -200,6 +216,7 @@ namespace WindowsFormsApp1
             this.Controls.Add(this.textBoxPassword);
             this.Controls.Add(this.textBoxAccount);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "LoginForm01";
             this.Text = "登录";
             this.panelChangePas.ResumeLayout(false);

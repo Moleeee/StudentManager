@@ -26,9 +26,10 @@ namespace WindowsFormsApp1
         public Form1()
         {
             InitializeComponent();      //初始化窗体
-            this.Load += Form1_Load;    //
             //this.Load += readInfo;      //窗体载入时读取文件
+            this.Load += Form1_Load;
             this.Load += OpenMySQL;     //窗体载入时打开数据库连接
+            this.Load += IniStuList;
             //this.FormClosed += saveInfo;//窗体关闭后写入文件
             this.FormClosed += CloseMySQL;//窗体关闭后关闭数据库连接
         }
@@ -284,7 +285,7 @@ namespace WindowsFormsApp1
             }
             else
             {
-                MessageBox.Show("该学号不存在");
+                MessageBox.Show("该学号不存在", "错误",MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
             }
         }
 
@@ -333,7 +334,7 @@ namespace WindowsFormsApp1
             string search = "select * from stuinfo where Sno=" + no;
             MySqlCommand cmd = new MySqlCommand(search, conn);
             MySqlDataReader dr = cmd.ExecuteReader();
-            while (dr.Read())
+            if (dr.Read())
             {
                 MessageBox.Show("学号:"+no+ "\t" +
                                 "姓名:" +dr.GetString("Sname")+ "\t" +
@@ -341,6 +342,13 @@ namespace WindowsFormsApp1
                                 "性别:" +dr.GetString("Ssex")+ "\t" +
                                 "年级:" +dr.GetString("Sgrade"));
             }
+            else
+            {
+                MessageBox.Show("该学号不存在", "错误",
+                                MessageBoxButtons.OKCancel,
+                                MessageBoxIcon.Error);
+            }
+            dr.Close();
         }
 
         private void Form1_Load(object sender, EventArgs e) //首先在主窗体添加定时事件
@@ -455,7 +463,8 @@ namespace WindowsFormsApp1
             /*listBoxShow.Items.Clear();
             //Console.WriteLine("学生的平均分数:" + getAverage());
             listBoxShow.Items.Add("学生的平均分数:" + string.Format("{0:F}", getAverage()));*/
-            MessageBox.Show("平均分为"+string.Format("{0:F}",getAverage_1()));
+            int count = students.Count;
+            MessageBox.Show("学生总数:"+count+"\t"+"平均分:"+string.Format("{0:F}",getAverage_1()));
         }
 
         private void buttonSearchSinfo_Click(object sender, EventArgs e)
@@ -519,6 +528,34 @@ namespace WindowsFormsApp1
         {
             dataGridViewShow.DataSource = stuinfoBindingSource.DataSource;
         }
+
+        private void IniStuList(object sender, EventArgs e)
+        {
+            string query = "select * from stuinfo";  //sql查询语句
+            MySqlCommand cmd = new MySqlCommand(query, conn);    //将查询语句放进该数据库容器中
+            MySqlDataReader dataReader = cmd.ExecuteReader();   //创建一个实例保存查询出来的结构
+            students.Clear();
+            if (dataReader.HasRows) //判断有没有读取到数据，实际是判断有没有读取到行数据，可以不写
+            {
+                while (dataReader.Read())
+                {
+                    //在数据集合加入数据，
+                    students.Add(
+                    //添加数据库数据到list
+                    new Stu()
+                    {
+                        Sno = dataReader["Sno"].ToString(),
+                        Sname = dataReader["Sname"].ToString(),
+                        Sdeg = float.Parse(dataReader["Sdeg"].ToString()),
+                        Ssex = dataReader["Ssex"].ToString(),
+                        Sgrade = dataReader["Sgrade"].ToString(),
+                    });
+                }
+                dataReader.Close();
+
+            }
+        }
+
     }
     public class Student
     {

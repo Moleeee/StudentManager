@@ -17,14 +17,21 @@ namespace WindowsFormsApp1
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            /*LoginForm01 loginform = new LoginForm01();
+            LoginForm01 loginform = new LoginForm01();
+
+            //运行登录界面
             loginform.ShowDialog();
-            if (loginform.closeFlag == false)
+            if (loginform.closeFlag == true)
             {
                 Application.Run(new Form1());
-            }*/
+            }
 
-            Application.Run(new Form1());
+
+            //直接运行管理界面
+            //Application.Run(new Form1());
+
+
+            //Application.Run(new FormTest());
         }
 
     }
