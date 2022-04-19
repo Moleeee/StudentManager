@@ -16,126 +16,36 @@ namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
-
-
-        LinkedList<Student> linkListStudent = new LinkedList<Student>();
-        Student p = null;
+        static string port = "port=3306;";
+        static string database = "database=Admin01;";
 
         List<Stu> students = new List<Stu>(); //新建一个数据集合，实例化
         
         public Form1()
         {
             InitializeComponent();      //初始化窗体
-            //this.Load += readInfo;      //窗体载入时读取文件
             this.Load += Form1_Load;
             this.Load += OpenMySQL;     //窗体载入时打开数据库连接
+            this.Load += CreateTableStuInfo;
             this.Load += IniStuList;
-            //this.FormClosed += saveInfo;//窗体关闭后写入文件
             this.FormClosed += CloseMySQL;//窗体关闭后关闭数据库连接
         }
 
         #region 连接MySQL
         static string connectStr = "server=localhost;" +
-                "port=3307;" +
+                port +
                 "user=root;" +
                 "password=root; " +
-                "database=Admin;";
+                database;
         //连接MySQL
         MySqlConnection conn = new MySqlConnection(connectStr);
         #endregion
-
-        public void saveInfo(object sender, EventArgs e)    //在文件中写入学生信息
-        {
-            StreamWriter sw=new StreamWriter("D:/studentInfo.txt");
-            LinkedListNode<Student> prev = linkListStudent.First;
-            //sw.WriteLine("123456");
-            while (prev != null)
-            {
-                sw.WriteLine(prev.Value.no + "\r\n" + prev.Value.name + "\r\n" + prev.Value.deg
-                            + "\r\n" + prev.Value.sex + "\r\n" + prev.Value.grade);
-                prev = prev.Next;
-            }
-            sw.Close();
-            
-        }
-
-        public void readInfo(object sender, EventArgs e)    //从文件中读取学生信息
-        {
-            StreamReader sr = new StreamReader("D:/studentInfo.txt");
-            //Console.WriteLine(sr.ReadToEnd());
-            string line;
-            string[] array=new string[200];
-            int i = 0;
-            while ((line = sr.ReadLine()) != null)
-            {
-                
-                Console.WriteLine(line);
-                array[i] = line;
-                i++;
-            }
-
-            int j = 0;
-            while (array[j] != null)
-            {
-                Console.WriteLine("array"+array[j]);
-                j++;
-            }
-
-            for (int n = 0; array[n] != null; n = n + 5)
-            {
-                p=new Student(true, array[n], array[n + 1], array[n + 2],array[n+3],array[n+4]);
-                linkListStudent.AddLast(p);
-                //addRecord(true, linkListStudent.Last);
-            }
-            listBoxHistory.Items.Add("文件读取成功");
-
-            /*while (line != null)
-            {
-                p = new Student(true, sr.ReadLine(), sr.ReadLine(), sr.ReadLine());
-                Console.WriteLine("test"+p.deg);
-            }
-            //Console.WriteLine(sr.Read());*/
-
-            sr.Close();
-        }
 
         private void setPanelUnvisible()    //隐藏面板，用于不同面板切换
         {
             panelAddSinfo.Visible = false;
             panelSearchSinfo.Visible = false;
             panelDelSinfo.Visible = false;
-        }
-
-        private bool isNoDifferent(TextBox no)  //判断学号是否重复
-        {
-            LinkedListNode<Student> prev = linkListStudent.First;
-            int sameNum = 0;
-            while (prev != null)
-            {
-                if (prev.Value.no == no.Text)
-                {
-                    sameNum++;
-                    break;
-                }
-                prev = prev.Next;
-            }
-            return (sameNum == 0) ? true : false;
-        }
-
-        private void addStudent()   //添加学生
-        {
-            LinkedListNode<Student> prev = linkListStudent.First;
-            if (isNoDifferent(textBoxSno))
-            {
-                p = new Student(textBoxSno,textBoxSname,textBoxSdeg,comboBoxSsex,comboBoxSgrade);
-                linkListStudent.AddLast(p);
-                addRecord(true,linkListStudent.Last);
-            }
-            else
-            {
-                Console.WriteLine("学号重复，添加失败");
-            }
-            
         }
 
         private void addStudent_1()
@@ -147,6 +57,7 @@ namespace WindowsFormsApp1
                             "values('" + Sno + "','" + Sname + "','" + Sdeg + "','" + Ssex + "','" + Sgrade + "')";
             try 
             {
+                
                 MySqlCommand cmd1 = new MySqlCommand(ins, conn);
                 cmd1.ExecuteNonQuery();
                 MessageBox.Show("插入成功");
@@ -163,40 +74,22 @@ namespace WindowsFormsApp1
                 
                 dataGridViewShow.DataSource = null;
                 dataGridViewShow.DataSource = students;
+                
             }
             catch
             {
-                Console.WriteLine("学号重复");
+                Console.WriteLine("添加出现错误");
+                throw;
             }
-        }
 
-        private void display()   //显示所有学生信息
-        {
-            LinkedListNode<Student> linkNodeStudent = linkListStudent.First;
-            if (Student.sumNum == 0)
+            try
             {
-                //Console.WriteLine("当前无学生");
-                listBoxShow.Items.Clear();
-                listBoxShow.Items.Add("当前无学生");
+
             }
-            else
+            catch
             {
-                //Console.WriteLine("当前学生总数为:"+Student.sumNum);
-                listBoxShow.Items.Clear();
-                listBoxShow.Items.Add("当前学生总数为:" + Student.sumNum);
-                listBoxShow.Items.Add("no"+"\t"+"name"+"\t"+"deg"+"\t"+"sex"+" \t"+"grade");
-                //linkNodeStudent.Value.showInfo();
-                while (linkNodeStudent!= null)
-                {
-                    var value = linkNodeStudent.Value;
-                    linkNodeStudent.Value.showInfo();
-                    listBoxShow.Items.Add(value.no+ "\t" + value.name+ "\t" + value.deg + "\t"
-                                        + value.sex + "\t" + value.grade); 
-                    linkNodeStudent = linkNodeStudent.Next;
-                    
-                }
+
             }
-            
         }
 
         private void display_1()
@@ -204,64 +97,48 @@ namespace WindowsFormsApp1
             string query = "select * from stuinfo";  //sql查询语句
             MySqlCommand cmd = new MySqlCommand(query, conn);    //将查询语句放进该数据库容器中
             MySqlDataReader dataReader = cmd.ExecuteReader();   //创建一个实例保存查询出来的结构
-            students.Clear();
-            if (dataReader.HasRows) //判断有没有读取到数据，实际是判断有没有读取到行数据，可以不写
+            try
             {
-                while (dataReader.Read())
+                students.Clear();
+                if (dataReader.HasRows) //判断有没有读取到数据，实际是判断有没有读取到行数据，可以不写
                 {
-                    //在数据集合加入数据，
-                    students.Add(
-                    //添加数据库数据到list
-                    new Stu()
+                    while (dataReader.Read())
                     {
-                        Sno= dataReader["Sno"].ToString(),
-                        Sname=dataReader["Sname"].ToString(),
-                        Sdeg = float.Parse(dataReader["Sdeg"].ToString()),
-                        Ssex=dataReader["Ssex"].ToString(),
-                        Sgrade=dataReader["Sgrade"].ToString(),
-                    });
+                        //在数据集合加入数据，
+                        students.Add(
+                        //添加数据库数据到list
+                        new Stu()
+                        {
+                            Sno = dataReader["Sno"].ToString(),
+                            Sname = dataReader["Sname"].ToString(),
+                            Sdeg = float.Parse(dataReader["Sdeg"].ToString()),
+                            Ssex = dataReader["Ssex"].ToString(),
+                            Sgrade = dataReader["Sgrade"].ToString(),
+                        });
+                    }
+                    dataReader.Close();
+
                 }
                 dataReader.Close();
+                dataGridViewShow.DataSource = null;
+                dataGridViewShow.DataSource = students;
+                dataGridViewShow.RowHeadersVisible = false;
+                dataGridViewShow.Columns[0].Width = 62;
+                dataGridViewShow.Columns[1].Width = 85;
+                dataGridViewShow.Columns[2].Width = 85;
+                dataGridViewShow.Columns[3].Width = 85;
+                dataGridViewShow.Columns[4].Width = 85;
+            }
+            catch
+            {
+                MessageBox.Show("有错误");
+            }
+            finally
+            {
+                dataReader.Close();
+            }
+        }
                 
-            }
-            dataReader.Close();
-            dataGridViewShow.DataSource = null;
-            dataGridViewShow.DataSource = students;
-            dataGridViewShow.RowHeadersVisible = false;
-            dataGridViewShow.Columns[0].Width = 62;
-            dataGridViewShow.Columns[1].Width = 85;
-            dataGridViewShow.Columns[2].Width = 85;
-            dataGridViewShow.Columns[3].Width = 85;
-            dataGridViewShow.Columns[4].Width = 85;
-        }
-        
-        private void delStudent(TextBox delNo)  //删除指定学号的学生
-        {
-            LinkedListNode<Student> linkNodeStudent = linkListStudent.First;
-
-            if (Student.sumNum == 0)
-            {
-                Console.WriteLine("当前无学生");
-            }
-            else
-            {
-                while (linkNodeStudent != null)
-                {
-                    if (linkNodeStudent.Value.no == delNo.Text)
-                    {
-                        Student.sumDeg -= linkNodeStudent.Value.deg;
-                        Student.sumNum--;
-                        
-                        addRecord(false,linkNodeStudent);
-                        linkListStudent.Remove(linkNodeStudent);
-                        Console.WriteLine("删除成功");
-                    }
-
-                    linkNodeStudent = linkNodeStudent.Next;
-                }
-            }
-        }
-        
         private void delStudent_1()
         {
             string delNo = textBoxDel.Text;
@@ -289,42 +166,10 @@ namespace WindowsFormsApp1
             }
         }
 
-        private float getAverage()  //获取所有学生的平均分
-        {
-            float average =(Student.sumNum==0) ? 0 : (Student.sumDeg/Student.sumNum) ;
-            string.Format("{0:F}", average);
-            return average;
-        }
-
         private float getAverage_1()
         {
             float ave = students.Average(t => t.Sdeg);
             return ave;
-        }
-
-        private void searchNo(TextBox textBox)
-        {
-            if (Student.sumNum == 0)
-            {
-                listBoxShow.Items.Add("当前无学生");
-            }
-            else
-            {
-                LinkedListNode<Student> prev = linkListStudent.First;
-                while (prev != null)
-                {
-                    if (textBox.Text == prev.Value.no)
-                    {
-                        var value = prev.Value;
-                        listBoxHistory.Items.Add("查找学号为"+textBox.Text+"的学生");
-                        listBoxShow.Items.Clear();
-                        listBoxShow.Items.Add("查找结果如下：");
-                        listBoxShow.Items.Add("no:" + value.no +"\t"+ "name:" + value.name +"\t"+ "deg:" + value.deg +"\t"+
-                                        "sex:" + value.sex + "\t"+"grade:" + value.grade);
-                    }
-                    prev = prev.Next;
-                }
-            }
         }
 
         private void searchNo_1(TextBox tb)
@@ -351,6 +196,27 @@ namespace WindowsFormsApp1
             dr.Close();
         }
 
+        public void addRecord_1(bool isAdd, List<Stu> stu)
+        {
+            Stu last = stu.Last();
+            string addHis;
+            if (isAdd)
+            {
+                addHis = "添加了学号：" + last.Sno + ",姓名：" + last.Sname +
+                        ",成绩：" + last.Sdeg + ",性别：" + last.Ssex +
+                        ",年级：" + last.Sgrade + "的学生";
+            }
+            else
+            {
+                addHis = "删除了学号：" + last.Sno + ",姓名：" + last.Sname +
+                        ",成绩：" + last.Sdeg + ",性别：" + last.Ssex +
+                        ",年级：" + last.Sgrade + "的学生";
+            }
+            listBoxHistory.Items.Add(addHis);
+        }
+
+
+        #region 显示系统时间
         private void Form1_Load(object sender, EventArgs e) //首先在主窗体添加定时事件
         {
             this.timer1.Interval = 1000;//设置定时器触发间隔
@@ -365,41 +231,9 @@ namespace WindowsFormsApp1
             this.labelDate.Text = time.ToString(); //显示当前时间
         }
 
-        public void addRecord(bool isAdd,LinkedListNode<Student> node)//为操作添加历史记录
-        {
-            if (isAdd)
-            {
-                /*this.listBox1.Items.Add("添加了学号为"+this.textBox1.Text+
-                    "  姓名为"+this.textBox2.Text+"的学生");*/
-                this.listBoxHistory.Items.Add(labelDate.Text+"添加了学号为" + node.Value.no +
-                    ",姓名为" + node.Value.name + "的学生");
-                
-            }
-            else
-            {
-                this.listBoxHistory.Items.Add(labelDate.Text+"删除了学号为" + node.Value.no +
-                    ",姓名为" + node.Value.name + "的学生");
-            }
-        }
+        #endregion
 
-        public void addRecord_1(bool isAdd,List<Stu> stu)
-        {
-            Stu last = stu.Last();
-            string addHis;
-            if (isAdd)
-            {
-                addHis = "添加了学号：" + last.Sno + ",姓名：" + last.Sname +
-                        ",成绩：" + last.Sdeg + ",性别：" + last.Ssex +
-                        ",年级：" + last.Sgrade + "的学生";
-            }
-            else
-            {
-                addHis= "删除了学号：" + last.Sno + ",姓名：" + last.Sname +
-                        ",成绩：" + last.Sdeg + ",性别：" + last.Ssex +
-                        ",年级：" + last.Sgrade + "的学生";
-            }
-            listBoxHistory.Items.Add(addHis);
-        }
+        #region 调用函数
 
         private void buttonAddSinfo_Click(object sender, EventArgs e)
         {
@@ -457,14 +291,19 @@ namespace WindowsFormsApp1
             //delStudent(textBoxDel);
             delStudent_1();
         }
-        
+
         private void buttonGetSAverage_Click(object sender, EventArgs e)
         {
-            /*listBoxShow.Items.Clear();
-            //Console.WriteLine("学生的平均分数:" + getAverage());
-            listBoxShow.Items.Add("学生的平均分数:" + string.Format("{0:F}", getAverage()));*/
-            int count = students.Count;
-            MessageBox.Show("学生总数:"+count+"\t"+"平均分:"+string.Format("{0:F}",getAverage_1()));
+            if (students.Count == 0)
+            {
+                MessageBox.Show("数据库中无学生");
+            }
+            else
+            {
+                int count = students.Count;
+                MessageBox.Show("学生总数:" + count + "\t" + "平均分:" + string.Format("{0:F}", getAverage_1()));
+
+            }
         }
 
         private void buttonSearchSinfo_Click(object sender, EventArgs e)
@@ -478,6 +317,8 @@ namespace WindowsFormsApp1
             //searchNo(textBoxSearch);
             searchNo_1(textBoxSearch);
         }
+
+        #endregion
 
         private void OpenMySQL(object sender, EventArgs e)
         {
@@ -499,11 +340,18 @@ namespace WindowsFormsApp1
             conn.Close();
         }
 
-        private void CreateTableStuInfo()
+        private void CreateTableStuInfo(object sender, EventArgs e)
         {
+            string ino = "12";
+            string iname = "名字";
+            string ideg = "44";
+            string isex = "女";
+            string igrade = "大二";
             string cretbl = "CREATE TABLE " + "StuInfo" + "(Sno int NOT NULL,Sname varchar(10)," +
                                                            "Sdeg float(16,2),Ssex char(1),Sgrade char(2)," +
                                                            "UNIQUE(Sno))";
+            string initial = "insert into stuinfo(Sno,Sname,Sdeg,Ssex,Sgrade)" +
+                            "values('" + ino + "','" + iname + "','" + ideg + "','" + isex + "','" + igrade + "')";
             try
             {
                 MySqlCommand cmd = new MySqlCommand(cretbl, conn);
@@ -512,21 +360,9 @@ namespace WindowsFormsApp1
             }
             catch (Exception)
             {
-                MessageBox.Show("failed");
+                MessageBox.Show("stuinfo已存在");
                 //throw;
             }
-        }
-
-        private void Form1_Load_1(object sender, EventArgs e)
-        {
-            // TODO: 这行代码将数据加载到表“adminDataSet.stuinfo”中。您可以根据需要移动或删除它。
-            //this.stuinfoTableAdapter.Fill(this.adminDataSet.stuinfo);
-
-        }
-
-        private void SetDataSource()
-        {
-            dataGridViewShow.DataSource = stuinfoBindingSource.DataSource;
         }
 
         private void IniStuList(object sender, EventArgs e)
@@ -551,68 +387,11 @@ namespace WindowsFormsApp1
                         Sgrade = dataReader["Sgrade"].ToString(),
                     });
                 }
-                dataReader.Close();
-
+                //dataReader.Close();
             }
+            dataReader.Close();
         }
 
-    }
-    public class Student
-    {
-        public string no;
-        public string name;
-        public float deg;
-        public string sex;
-        public string grade;
-
-        public static int sumNum=0;
-        public static float sumDeg=0;
-        
-        
-        public Student(TextBox a, TextBox b, TextBox c,ComboBox d,ComboBox e)   //构造函数1
-        {
-            try
-            {
-                no = a.Text;
-                name = b.Text;
-                deg = float.Parse(c.Text);
-                sex = d.Text;
-                grade = e.Text;
-
-                sumNum++;
-                sumDeg += deg;
-                
-                Console.WriteLine("添加成功");
-                a.Text = null;
-                b.Text = null;
-                c.Text = null;
-                d.Text = null;
-                e.Text = null;
-            }
-            catch
-            {
-                Console.WriteLine("failed");
-            }
-        }
-        
-        public Student(bool l,String a,String b,String c,String d,String e)     //构造函数2
-        {
-            no = a;
-            name = b;
-            deg = float.Parse(c);
-            sex = d;
-            grade = e;
-
-            sumNum++;
-            sumDeg += deg;
-            Console.WriteLine("success");
-        }
-
-        public void showInfo()  //展示学生信息
-        {
-            Console.WriteLine(no +"  "+ name+"  " + deg+" "+ sex +" " + grade);
-            
-        }
     }
 }
 namespace Sql_Student

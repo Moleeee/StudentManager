@@ -443,7 +443,6 @@ namespace WindowsFormsApp1
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "学生管理系统";
-            this.Load += new System.EventHandler(this.Form1_Load_1);
             this.panelAddSinfo.ResumeLayout(false);
             this.panelAddSinfo.PerformLayout();
             this.panelDelSinfo.ResumeLayout(false);

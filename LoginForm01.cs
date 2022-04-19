@@ -23,9 +23,11 @@ namespace WindowsFormsApp1
         {
             InitializeComponent();
             this.Load += CreateMysqlDB; //创建名为Admin的数据库
-            this.Load += CreatTable;    //创建存储初始账户的表
+            this.Load += CreatTable_te;    //创建存储初始账户的表
             this.Load += ConnectMySQL;  //连接数据库，获取初始账户信息
         }
+        static string port = "port=3306;";
+        static string database = "database=Admin01;";
 
         List<Admin> admins = new List<Admin>(); //新建一个存储管理员账户的数据集合，实例化
 
@@ -62,10 +64,10 @@ namespace WindowsFormsApp1
         private void ConnectMySQL(object sender, EventArgs e)
         {
             String connetStr = "server=localhost;" +
-                "port=3307;" +
+                port+
                 "user=root;" +
                 "password=root; " +
-                "database=Admin;";
+                database;
             //连接MySQL
             MySqlConnection conn = new MySqlConnection(connetStr);
 
@@ -155,10 +157,10 @@ namespace WindowsFormsApp1
                 {
                     Console.WriteLine("1");
                     String connetStr = "server=localhost;" +
-                    "port=3307;" +
+                    port +
                     "user=root;" +
                     "password=root; " +
-                    "database=Admin;";
+                    database;
                     //连接MySQL
                     MySqlConnection conn = new MySqlConnection(connetStr);
                     try
@@ -217,10 +219,10 @@ namespace WindowsFormsApp1
         public static void CreateMysqlDB(object sender, EventArgs e)
         {
             MySqlConnection conn = new MySqlConnection("Data Source=localhost;" +
-                                                        "port=3307;" +
+                                                        port +
                                                         "UserId=root;" +
                                                         " PWD=root");
-            MySqlCommand cmd = new MySqlCommand("CREATE DATABASE Admin;", conn);
+            MySqlCommand cmd = new MySqlCommand("CREATE DATABASE Admin01;", conn);
 
             conn.Open();
 
@@ -245,13 +247,13 @@ namespace WindowsFormsApp1
             }
         }
 
-        public void CreatTable(object sender, EventArgs e)
+        public void CreatTable_te(object sender, EventArgs e)
         {
             MySqlConnection conn_1 = new MySqlConnection("Data Source=localhost;" +
-                                                        "port=3307;" +
+                                                        port +
                                                         "user=root;" +
                                                         " password=root;" +
-                                                        "database=Admin");
+                                                        database);
             try
             {
                 conn_1.Open();
@@ -282,8 +284,41 @@ namespace WindowsFormsApp1
 
         }
 
+        private void CreatTable_Stu(object sender, EventArgs e)
+        {
+            MySqlConnection conn_1 = new MySqlConnection("Data Source=localhost;" +
+                                                        port +
+                                                        "user=root;" +
+                                                        " password=root;" +
+                                                        database);
+            try
+            {
+                conn_1.Open();
+                //建表
+                string createTable = "create table teinfo(Account varchar(10) NOT NULL,Password varchar(20))";
+                MySqlCommand cmd1 = new MySqlCommand(createTable, conn_1);
+                cmd1.ExecuteNonQuery();
+                Console.WriteLine("建表成功");
 
+                //在表中写入初始密码
+                string iniAccount = "2020";
+                string iniPassword = "bupt";
+                string iniInfo = "insert into teinfo(Account,Password)" +
+                            "values('" + iniAccount + "','" + iniPassword + "')";
+                MySqlCommand cmd2 = new MySqlCommand(iniInfo, conn_1);
+                cmd2.ExecuteNonQuery();
 
+            }
+            catch
+            {
+                Console.WriteLine("表已存在");
+                //throw;
+            }
+            finally
+            {
+                conn_1.Close();
+            }
+        }
     }
 }
     namespace Sql_Read_Show_
