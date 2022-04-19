@@ -38,7 +38,7 @@ namespace WindowsFormsApp1
         static string connectStr = "server=localhost;" +
                 "port=3307;" +
                 "user=root;" +
-                "password=dyinglight77...; " +
+                "password=root; " +
                 "database=Admin;";
         //连接MySQL
         MySqlConnection conn = new MySqlConnection(connectStr);
@@ -520,7 +520,7 @@ namespace WindowsFormsApp1
         private void Form1_Load_1(object sender, EventArgs e)
         {
             // TODO: 这行代码将数据加载到表“adminDataSet.stuinfo”中。您可以根据需要移动或删除它。
-            this.stuinfoTableAdapter.Fill(this.adminDataSet.stuinfo);
+            //this.stuinfoTableAdapter.Fill(this.adminDataSet.stuinfo);
 
         }
 

@@ -29,35 +29,26 @@ namespace WindowsFormsApp1
 
         List<Admin> admins = new List<Admin>(); //新建一个存储管理员账户的数据集合，实例化
 
-        public bool closeFlag = false;//监测登录页面是否关闭
+        public bool isTeacher = false;//登录身份
 
         /*初始账户:2020
           初始密码:bupt*/
 
-        private void Login(TextBox acc, TextBox pas)
+        private void Login(TextBox acc, TextBox pas,ComboBox identity)
         {
-            /*if ((acc.Text == acc01) && (pas.Text == pas01))
+            if (identity.Text == "管理员")
             {
-                //Form form1=new Form1();
-                //form1.Show();
-                closeFlag = true;
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show("账号密码错误");
-            }*/
-
-            for (int i = 0; i < admins.Count; i++)
-            {
-                if ((acc.Text == admins[i].Account) && (pas.Text == admins[i].Password))
+                for (int i = 0; i < admins.Count; i++)
                 {
-                    closeFlag = true;
-                    this.Close();
-                }
-                else
-                {
-                    MessageBox.Show("密码错误");
+                    if ((acc.Text == admins[i].Account) && (pas.Text == admins[i].Password))
+                    {
+                        isTeacher = true;
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("密码错误");
+                    }
                 }
             }
 
@@ -65,7 +56,7 @@ namespace WindowsFormsApp1
 
         private void BtnLogin_Click(object sender, EventArgs e)
         {
-            Login(textBoxAccount, textBoxPassword);
+            Login(textBoxAccount, textBoxPassword,comboBoxIsTeacher);
         }
 
         private void ConnectMySQL(object sender, EventArgs e)
@@ -73,7 +64,7 @@ namespace WindowsFormsApp1
             String connetStr = "server=localhost;" +
                 "port=3307;" +
                 "user=root;" +
-                "password=dyinglight77...; " +
+                "password=root; " +
                 "database=Admin;";
             //连接MySQL
             MySqlConnection conn = new MySqlConnection(connetStr);
@@ -166,7 +157,7 @@ namespace WindowsFormsApp1
                     String connetStr = "server=localhost;" +
                     "port=3307;" +
                     "user=root;" +
-                    "password=dyinglight77...; " +
+                    "password=root; " +
                     "database=Admin;";
                     //连接MySQL
                     MySqlConnection conn = new MySqlConnection(connetStr);
@@ -228,7 +219,7 @@ namespace WindowsFormsApp1
             MySqlConnection conn = new MySqlConnection("Data Source=localhost;" +
                                                         "port=3307;" +
                                                         "UserId=root;" +
-                                                        " PWD=dyinglight77...");
+                                                        " PWD=root");
             MySqlCommand cmd = new MySqlCommand("CREATE DATABASE Admin;", conn);
 
             conn.Open();
@@ -259,7 +250,7 @@ namespace WindowsFormsApp1
             MySqlConnection conn_1 = new MySqlConnection("Data Source=localhost;" +
                                                         "port=3307;" +
                                                         "user=root;" +
-                                                        " password=dyinglight77...;" +
+                                                        " password=root;" +
                                                         "database=Admin");
             try
             {
