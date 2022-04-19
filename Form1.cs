@@ -137,6 +137,11 @@ namespace WindowsFormsApp1
             {
                 dataReader.Close();
             }
+
+            if (students.Count == 0)
+            {
+                MessageBox.Show("数据库中无学生");
+            }
         }
                 
         private void delStudent_1()
@@ -174,26 +179,33 @@ namespace WindowsFormsApp1
 
         private void searchNo_1(TextBox tb)
         {
-            string no = tb.Text;
-            //Stu stu = students.Find(t => t.Sno == no);
-            string search = "select * from stuinfo where Sno=" + no;
-            MySqlCommand cmd = new MySqlCommand(search, conn);
-            MySqlDataReader dr = cmd.ExecuteReader();
-            if (dr.Read())
+            if (tb.Text == "")
             {
-                MessageBox.Show("学号:"+no+ "\t" +
-                                "姓名:" +dr.GetString("Sname")+ "\t" +
-                                "成绩:" +dr.GetString("Sdeg")+ "\t" +
-                                "性别:" +dr.GetString("Ssex")+ "\t" +
-                                "年级:" +dr.GetString("Sgrade"));
+                MessageBox.Show("请输入学号","错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                MessageBox.Show("该学号不存在", "错误",
-                                MessageBoxButtons.OKCancel,
-                                MessageBoxIcon.Error);
+                string no = tb.Text;
+                //Stu stu = students.Find(t => t.Sno == no);
+                string search = "select * from stuinfo where Sno=" + no;
+                MySqlCommand cmd = new MySqlCommand(search, conn);
+                MySqlDataReader dr = cmd.ExecuteReader();
+                if (dr.Read())
+                {
+                    MessageBox.Show("学号:" + no + "\t" +
+                                    "姓名:" + dr.GetString("Sname") + "\t" +
+                                    "成绩:" + dr.GetString("Sdeg") + "\t" +
+                                    "性别:" + dr.GetString("Ssex") + "\t" +
+                                    "年级:" + dr.GetString("Sgrade"));
+                }
+                else
+                {
+                    MessageBox.Show("该学号不存在", "错误",
+                                    MessageBoxButtons.OKCancel,
+                                    MessageBoxIcon.Error);
+                }
+                dr.Close();
             }
-            dr.Close();
         }
 
         public void addRecord_1(bool isAdd, List<Stu> stu)
@@ -360,7 +372,7 @@ namespace WindowsFormsApp1
             }
             catch (Exception)
             {
-                MessageBox.Show("stuinfo已存在");
+                Console.WriteLine("stuinfo已存在");
                 //throw;
             }
         }
