@@ -11,6 +11,7 @@ using System.Data.SqlClient;
 using MySql.Data.MySqlClient;
 using Microsoft.Win32.SafeHandles;
 using Sql_Read_Show_;
+using Sql_SAccount;
 using System.Runtime.CompilerServices;
 using Org.BouncyCastle.Crypto.Engines;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
@@ -23,7 +24,9 @@ namespace WindowsFormsApp1
         {
             InitializeComponent();
             this.Load += CreateMysqlDB; //创建名为Admin的数据库
-            this.Load += CreatTable_te;    //创建存储初始账户的表
+            this.Load += CreatTable_tAccount;    //创建存储管理员初始账户的表
+            this.Load += CreatTable_sAccount;    //创建存储学生初始账户的表
+            this.Load += InisAccountList;       //初始化学生账户的
             this.Load += ConnectMySQL;  //连接数据库，获取初始账户信息
         }
         static string port = "port=3306;";
@@ -31,27 +34,48 @@ namespace WindowsFormsApp1
 
         List<Admin> admins = new List<Admin>(); //新建一个存储管理员账户的数据集合，实例化
 
-        public bool isTeacher = false;//登录身份
+        List<SAccount> list_saccount = new List<SAccount>(); //新建一个数据集合，实例化
 
-        /*初始账户:2020
-          初始密码:bupt*/
+        public string isTeacher="unknown";//登录身份
+
+        /*管理员初始账户:2020
+                初始密码:bupt
+        */
 
         private void Login(TextBox acc, TextBox pas,ComboBox identity)
         {
-            if (identity.Text == "管理员")
+            if (identity.Text == "")
             {
+                MessageBox.Show("请选择登录身份");
+            }
+            else if (identity.Text == "管理员")
+            {
+                bool AccPasMatch = false;
                 for (int i = 0; i < admins.Count; i++)
                 {
                     if ((acc.Text == admins[i].Account) && (pas.Text == admins[i].Password))
                     {
-                        isTeacher = true;
+                        isTeacher = "yes";
+                        AccPasMatch = true;
                         this.Close();
                     }
-                    else
+                }
+                if (AccPasMatch == false) MessageBox.Show("密码错误");
+            }
+            else if (identity.Text == "学生")
+            {
+                bool AccPasMatch = false;
+                for (int i = 0; i < list_saccount.Count; i++)
+                {
+                    if ((acc.Text == list_saccount[i].sAccount) && (pas.Text == list_saccount[i].sPassword))
                     {
-                        MessageBox.Show("密码错误");
+                        isTeacher = "no";
+                        StuForm.nowSno = acc.Text;
+                        AccPasMatch = true;
+                        this.Close();
                     }
                 }
+                if (AccPasMatch == false) MessageBox.Show("密码错误");
             }
 
         }
@@ -247,7 +271,7 @@ namespace WindowsFormsApp1
             }
         }
 
-        public void CreatTable_te(object sender, EventArgs e)
+        public void CreatTable_tAccount(object sender, EventArgs e)
         {
             MySqlConnection conn_1 = new MySqlConnection("Data Source=localhost;" +
                                                         port +
@@ -284,7 +308,7 @@ namespace WindowsFormsApp1
 
         }
 
-        private void CreatTable_Stu(object sender, EventArgs e)
+        private void CreatTable_sAccount(object sender, EventArgs e)
         {
             MySqlConnection conn_1 = new MySqlConnection("Data Source=localhost;" +
                                                         port +
@@ -295,18 +319,18 @@ namespace WindowsFormsApp1
             {
                 conn_1.Open();
                 //建表
-                string createTable = "create table teinfo(Account varchar(10) NOT NULL,Password varchar(20))";
+                string createTable = "create table sAccount(Account varchar(10) NOT NULL,Password varchar(20))";
                 MySqlCommand cmd1 = new MySqlCommand(createTable, conn_1);
                 cmd1.ExecuteNonQuery();
                 Console.WriteLine("建表成功");
 
                 //在表中写入初始密码
-                string iniAccount = "2020";
+                /*string iniAccount = "2020";
                 string iniPassword = "bupt";
                 string iniInfo = "insert into teinfo(Account,Password)" +
                             "values('" + iniAccount + "','" + iniPassword + "')";
                 MySqlCommand cmd2 = new MySqlCommand(iniInfo, conn_1);
-                cmd2.ExecuteNonQuery();
+                cmd2.ExecuteNonQuery();*/
 
             }
             catch
@@ -319,14 +343,53 @@ namespace WindowsFormsApp1
                 conn_1.Close();
             }
         }
+
+        private void InisAccountList(object sender, EventArgs e)
+        {
+            MySqlConnection conn = new MySqlConnection("Data Source=localhost;" +
+                                                        port +
+                                                        "user=root;" +
+                                                        " password=root;" +
+                                                        database);
+            conn.Open();
+            string query = "select * from sAccount";  //sql查询语句
+            MySqlCommand cmd = new MySqlCommand(query, conn);    //将查询语句放进该数据库容器中
+            MySqlDataReader dataReader = cmd.ExecuteReader();   //创建一个实例保存查询出来的结构
+            list_saccount.Clear();
+            if (dataReader.HasRows) //判断有没有读取到数据，实际是判断有没有读取到行数据，可以不写
+            {
+                while (dataReader.Read())
+                {
+                    //在数据集合加入数据，
+                    list_saccount.Add(
+                    //添加数据库数据到list
+                    new SAccount()
+                    {
+                        sAccount = dataReader["Account"].ToString(),
+                        sPassword = dataReader["Password"].ToString(),
+                    });
+                }
+                //dataReader.Close();
+            }
+            dataReader.Close();
+            conn.Close();
+        }
     }
 }
-    namespace Sql_Read_Show_
-    {
-        public partial class Admin
-        {
-            public string Account { get; set; }
-            public string Password { get; set; }
+namespace Sql_Read_Show_
+ {
+     public partial class Admin
+     {
+        public string Account { get; set; }
+        public string Password { get; set; }
 
         }
     }
+namespace Sql_SAccount
+{
+    public partial class SAccount
+    {
+        public string sAccount { get; set; }
+        public string sPassword { get; set; }
+    }
+}

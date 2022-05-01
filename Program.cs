@@ -21,13 +21,13 @@ namespace WindowsFormsApp1
 
             //运行登录界面
             loginform.ShowDialog();
-            if (loginform.isTeacher == true)
+            if (loginform.isTeacher == "yes")
             {
                 Application.Run(new Form1());
             }
-            else
+            else if(loginform.isTeacher == "no")
             {
-                //Application.Run
+                Application.Run(new StuForm());
             }
 
 

@@ -148,6 +148,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="StuForm.resx">
+      <DependentUpon>StuForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="AdminDataSet.xsc">
       <DependentUpon>AdminDataSet.xsd</DependentUpon>
     </None>

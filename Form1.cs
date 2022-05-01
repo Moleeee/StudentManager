@@ -16,8 +16,6 @@ namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
-        static string port = "port=3306;";
-        static string database = "database=Admin01;";
 
         List<Stu> students = new List<Stu>(); //新建一个数据集合，实例化
         
@@ -32,6 +30,8 @@ namespace WindowsFormsApp1
         }
 
         #region 连接MySQL
+        static string port = "port=3306;";
+        static string database = "database=Admin01;";
         static string connectStr = "server=localhost;" +
                 port +
                 "user=root;" +
@@ -60,7 +60,7 @@ namespace WindowsFormsApp1
                 
                 MySqlCommand cmd1 = new MySqlCommand(ins, conn);
                 cmd1.ExecuteNonQuery();
-                MessageBox.Show("插入成功");
+                MessageBox.Show("添加成功");
                 students.Add(
                     new Stu() { 
                         Sno=textBoxSno.Text,
@@ -71,10 +71,16 @@ namespace WindowsFormsApp1
                                 });
                 //students.Sort();
                 addRecord_1(true, students);
+                editsAccount(true, Sno);
                 
                 dataGridViewShow.DataSource = null;
                 dataGridViewShow.DataSource = students;
-                
+
+                textBoxSno.Text = null;
+                textBoxSname.Text = null;
+                textBoxSdeg.Text = null;
+                comboBoxSsex.Text = null;
+                comboBoxSgrade.Text = null;
             }
             catch
             {
@@ -123,11 +129,11 @@ namespace WindowsFormsApp1
                 dataGridViewShow.DataSource = null;
                 dataGridViewShow.DataSource = students;
                 dataGridViewShow.RowHeadersVisible = false;
-                dataGridViewShow.Columns[0].Width = 62;
+                /*dataGridViewShow.Columns[0].Width = 62;
                 dataGridViewShow.Columns[1].Width = 85;
                 dataGridViewShow.Columns[2].Width = 85;
                 dataGridViewShow.Columns[3].Width = 85;
-                dataGridViewShow.Columns[4].Width = 85;
+                dataGridViewShow.Columns[4].Width = 85;*/
             }
             catch
             {
@@ -155,6 +161,7 @@ namespace WindowsFormsApp1
                     MySqlCommand cmd = new MySqlCommand(del, conn);
                     cmd.ExecuteNonQuery();
                     addRecord_1(false, students);
+                    editsAccount(false, delNo);
                     students.RemoveAll((stu) => stu.Sno == delNo);
                     dataGridViewShow.DataSource = null;
                     dataGridViewShow.DataSource = students;
@@ -216,17 +223,52 @@ namespace WindowsFormsApp1
             {
                 addHis = "添加了学号：" + last.Sno + ",姓名：" + last.Sname +
                         ",成绩：" + last.Sdeg + ",性别：" + last.Ssex +
-                        ",年级：" + last.Sgrade + "的学生";
+                        ",年级：" + last.Sgrade;
             }
             else
             {
                 addHis = "删除了学号：" + last.Sno + ",姓名：" + last.Sname +
                         ",成绩：" + last.Sdeg + ",性别：" + last.Ssex +
-                        ",年级：" + last.Sgrade + "的学生";
+                        ",年级：" + last.Sgrade;
             }
             listBoxHistory.Items.Add(addHis);
         }
 
+        public void editsAccount(bool isadd,string Sno)
+        {
+            if (isadd == true)
+            {
+                string iniAccount = Sno;
+                string iniPassword = "bupt";
+                string ins = "insert into sAccount(Account,Password)" +
+                            "values('" + iniAccount + "','" + iniPassword + "')";
+                try
+                {
+                    MySqlCommand cmd = new MySqlCommand(ins, conn);
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("学生账号插入成功");
+                }
+                catch
+                {
+                    MessageBox.Show("学生账号插入失败");
+                }
+            }
+            else if(isadd==false)
+            {
+                string delAccount = Sno;
+                string del = "delete from sAccount where Account =" + delAccount;
+                try
+                {
+                    MySqlCommand cmd = new MySqlCommand(del, conn);
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("学生账号删除成功");
+                }
+                catch
+                {
+                    MessageBox.Show("学生账号删除失败");
+                }
+            }
+        }
 
         #region 显示系统时间
         private void Form1_Load(object sender, EventArgs e) //首先在主窗体添加定时事件
