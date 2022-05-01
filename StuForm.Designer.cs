@@ -31,11 +31,18 @@ namespace WindowsFormsApp1
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StuForm));
             this.buttonCheck = new System.Windows.Forms.Button();
+            this.buttonSelectLesson = new System.Windows.Forms.Button();
+            this.comboBoxSL = new System.Windows.Forms.ComboBox();
+            this.panelSL = new System.Windows.Forms.Panel();
+            this.labelSL = new System.Windows.Forms.Label();
+            this.buttonSLConfirm = new System.Windows.Forms.Button();
+            this.buttonSLBack = new System.Windows.Forms.Button();
+            this.panelSL.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonCheck
             // 
-            this.buttonCheck.Location = new System.Drawing.Point(326, 54);
+            this.buttonCheck.Location = new System.Drawing.Point(326, 134);
             this.buttonCheck.Name = "buttonCheck";
             this.buttonCheck.Size = new System.Drawing.Size(75, 23);
             this.buttonCheck.TabIndex = 0;
@@ -43,15 +50,84 @@ namespace WindowsFormsApp1
             this.buttonCheck.UseVisualStyleBackColor = true;
             this.buttonCheck.Click += new System.EventHandler(this.buttonCheck_Click);
             // 
+            // buttonSelectLesson
+            // 
+            this.buttonSelectLesson.Location = new System.Drawing.Point(326, 206);
+            this.buttonSelectLesson.Name = "buttonSelectLesson";
+            this.buttonSelectLesson.Size = new System.Drawing.Size(75, 23);
+            this.buttonSelectLesson.TabIndex = 1;
+            this.buttonSelectLesson.Text = "选课";
+            this.buttonSelectLesson.UseVisualStyleBackColor = true;
+            this.buttonSelectLesson.Click += new System.EventHandler(this.buttonSelectLesson_Click);
+            // 
+            // comboBoxSL
+            // 
+            this.comboBoxSL.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxSL.FormattingEnabled = true;
+            this.comboBoxSL.Items.AddRange(new object[] {
+            "模拟电路",
+            "数字电路",
+            "概率论",
+            "信号与系统",
+            "程序设计实践"});
+            this.comboBoxSL.Location = new System.Drawing.Point(83, 52);
+            this.comboBoxSL.Name = "comboBoxSL";
+            this.comboBoxSL.Size = new System.Drawing.Size(165, 23);
+            this.comboBoxSL.TabIndex = 0;
+            // 
+            // panelSL
+            // 
+            this.panelSL.Controls.Add(this.buttonSLBack);
+            this.panelSL.Controls.Add(this.buttonSLConfirm);
+            this.panelSL.Controls.Add(this.labelSL);
+            this.panelSL.Controls.Add(this.comboBoxSL);
+            this.panelSL.Location = new System.Drawing.Point(243, 79);
+            this.panelSL.Name = "panelSL";
+            this.panelSL.Size = new System.Drawing.Size(291, 227);
+            this.panelSL.TabIndex = 2;
+            // 
+            // labelSL
+            // 
+            this.labelSL.AutoSize = true;
+            this.labelSL.Location = new System.Drawing.Point(24, 55);
+            this.labelSL.Name = "labelSL";
+            this.labelSL.Size = new System.Drawing.Size(45, 15);
+            this.labelSL.TabIndex = 1;
+            this.labelSL.Text = "选课:";
+            // 
+            // buttonSLConfirm
+            // 
+            this.buttonSLConfirm.Location = new System.Drawing.Point(51, 178);
+            this.buttonSLConfirm.Name = "buttonSLConfirm";
+            this.buttonSLConfirm.Size = new System.Drawing.Size(59, 23);
+            this.buttonSLConfirm.TabIndex = 2;
+            this.buttonSLConfirm.Text = "确认";
+            this.buttonSLConfirm.UseVisualStyleBackColor = true;
+            this.buttonSLConfirm.Click += new System.EventHandler(this.buttonSLConfirm_Click);
+            // 
+            // buttonSLBack
+            // 
+            this.buttonSLBack.Location = new System.Drawing.Point(189, 178);
+            this.buttonSLBack.Name = "buttonSLBack";
+            this.buttonSLBack.Size = new System.Drawing.Size(59, 23);
+            this.buttonSLBack.TabIndex = 3;
+            this.buttonSLBack.Text = "返回";
+            this.buttonSLBack.UseVisualStyleBackColor = true;
+            this.buttonSLBack.Click += new System.EventHandler(this.buttonSLBack_Click);
+            // 
             // StuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.buttonSelectLesson);
             this.Controls.Add(this.buttonCheck);
+            this.Controls.Add(this.panelSL);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "StuForm";
             this.Text = "StuForm";
+            this.panelSL.ResumeLayout(false);
+            this.panelSL.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -59,5 +135,11 @@ namespace WindowsFormsApp1
         #endregion
 
         private System.Windows.Forms.Button buttonCheck;
+        private System.Windows.Forms.Button buttonSelectLesson;
+        private System.Windows.Forms.ComboBox comboBoxSL;
+        private System.Windows.Forms.Panel panelSL;
+        private System.Windows.Forms.Button buttonSLBack;
+        private System.Windows.Forms.Button buttonSLConfirm;
+        private System.Windows.Forms.Label labelSL;
     }
 }

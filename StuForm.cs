@@ -39,8 +39,8 @@ namespace WindowsFormsApp1
             //this.Load += InisAccountList;
             this.FormClosed += CloseMySQL;//窗体关闭后关闭数据库连接
         }
-
-        private void buttonCheck_Click(object sender, EventArgs e)
+        
+        private void CheckDeg()
         {
             string no = nowSno;
             //Stu stu = students.Find(t => t.Sno == no);
@@ -58,6 +58,11 @@ namespace WindowsFormsApp1
                                 MessageBoxIcon.Error);
             }
             dr.Close();
+        }
+
+        private void buttonCheck_Click(object sender, EventArgs e)
+        {
+            CheckDeg();
         }
 
         private void OpenMySQL(object sender, EventArgs e)
@@ -80,7 +85,22 @@ namespace WindowsFormsApp1
             conn.Close();
         }
 
-        
+        private void buttonSelectLesson_Click(object sender, EventArgs e)
+        {
+            panelSL.Visible = true;
+        }
+
+        private void buttonSLConfirm_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonSLBack_Click(object sender, EventArgs e)
+        {
+            panelSL.Visible = false;
+        }
+
+
 
         /*private void InisAccountList(object sender, EventArgs e)
         {
