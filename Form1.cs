@@ -403,7 +403,7 @@ namespace WindowsFormsApp1
             string igrade = "大二";
             string cretbl = "CREATE TABLE " + "StuInfo" + "(Sno int NOT NULL,Sname varchar(10)," +
                                                            "Sdeg float(16,2),Ssex char(1),Sgrade char(2)," +
-                                                           "UNIQUE(Sno))";
+                                                           "Slesson varchar(15),"+"UNIQUE(Sno))";
             string initial = "insert into stuinfo(Sno,Sname,Sdeg,Ssex,Sgrade)" +
                             "values('" + ino + "','" + iname + "','" + ideg + "','" + isex + "','" + igrade + "')";
             try

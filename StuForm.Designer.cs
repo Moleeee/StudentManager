@@ -37,6 +37,8 @@ namespace WindowsFormsApp1
             this.labelSL = new System.Windows.Forms.Label();
             this.buttonSLConfirm = new System.Windows.Forms.Button();
             this.buttonSLBack = new System.Windows.Forms.Button();
+            this.labelCL = new System.Windows.Forms.Label();
+            this.labelChoosedLesson = new System.Windows.Forms.Label();
             this.panelSL.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -77,6 +79,8 @@ namespace WindowsFormsApp1
             // 
             // panelSL
             // 
+            this.panelSL.Controls.Add(this.labelChoosedLesson);
+            this.panelSL.Controls.Add(this.labelCL);
             this.panelSL.Controls.Add(this.buttonSLBack);
             this.panelSL.Controls.Add(this.buttonSLConfirm);
             this.panelSL.Controls.Add(this.labelSL);
@@ -85,6 +89,7 @@ namespace WindowsFormsApp1
             this.panelSL.Name = "panelSL";
             this.panelSL.Size = new System.Drawing.Size(291, 227);
             this.panelSL.TabIndex = 2;
+            this.panelSL.Visible = false;
             // 
             // labelSL
             // 
@@ -115,14 +120,32 @@ namespace WindowsFormsApp1
             this.buttonSLBack.UseVisualStyleBackColor = true;
             this.buttonSLBack.Click += new System.EventHandler(this.buttonSLBack_Click);
             // 
+            // labelCL
+            // 
+            this.labelCL.AutoSize = true;
+            this.labelCL.Location = new System.Drawing.Point(24, 13);
+            this.labelCL.Name = "labelCL";
+            this.labelCL.Size = new System.Drawing.Size(75, 15);
+            this.labelCL.TabIndex = 4;
+            this.labelCL.Text = "当前已选:";
+            // 
+            // labelChoosedLesson
+            // 
+            this.labelChoosedLesson.AutoSize = true;
+            this.labelChoosedLesson.Location = new System.Drawing.Point(105, 13);
+            this.labelChoosedLesson.Name = "labelChoosedLesson";
+            this.labelChoosedLesson.Size = new System.Drawing.Size(37, 15);
+            this.labelChoosedLesson.TabIndex = 5;
+            this.labelChoosedLesson.Text = "未选";
+            // 
             // StuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.panelSL);
             this.Controls.Add(this.buttonSelectLesson);
             this.Controls.Add(this.buttonCheck);
-            this.Controls.Add(this.panelSL);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "StuForm";
             this.Text = "StuForm";
@@ -141,5 +164,7 @@ namespace WindowsFormsApp1
         private System.Windows.Forms.Button buttonSLBack;
         private System.Windows.Forms.Button buttonSLConfirm;
         private System.Windows.Forms.Label labelSL;
+        private System.Windows.Forms.Label labelChoosedLesson;
+        private System.Windows.Forms.Label labelCL;
     }
 }

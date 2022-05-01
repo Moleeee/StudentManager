@@ -60,6 +60,35 @@ namespace WindowsFormsApp1
             dr.Close();
         }
 
+        private void ShowChoosedLesson()
+        {
+            string choosedLesson="未选";
+            string query = "select Slesson from stuinfo where Sno =" + nowSno;
+            MySqlCommand cmd = new MySqlCommand(query, conn);
+            MySqlDataReader dataReader = cmd.ExecuteReader();   //创建一个实例保存查询出来的结构                              
+            if (dataReader.HasRows) //判断有没有读取到数据，实际是判断有没有读取到行数据，可以不写
+            {
+                while (dataReader.Read())
+                {
+                    choosedLesson = dataReader["Slesson"].ToString();
+
+                    /*//在数据集合加入数据，
+                    admins.Add(
+                    //添加数据库数据到list
+                    new Admin()
+                    {
+                        Account = dataReader["Account"].ToString(),
+                        Password = dataReader["Password"].ToString(),
+
+                    });*/
+                }
+                //dataReader.Close();
+
+            }
+            labelChoosedLesson.Text = choosedLesson;
+            dataReader.Close();
+        }
+
         private void buttonCheck_Click(object sender, EventArgs e)
         {
             CheckDeg();
@@ -88,11 +117,23 @@ namespace WindowsFormsApp1
         private void buttonSelectLesson_Click(object sender, EventArgs e)
         {
             panelSL.Visible = true;
+            ShowChoosedLesson();
         }
 
         private void buttonSLConfirm_Click(object sender, EventArgs e)
         {
-
+            string lesson = comboBoxSL.Text;
+            string sl= "update stuinfo set Slesson = '" + lesson + "' where Sno = " + nowSno;
+            MySqlCommand cmd = new MySqlCommand(sl, conn);
+            try
+            {
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("选课成功");
+            }
+            catch 
+            {
+                MessageBox.Show("选课失败");
+            }
         }
 
         private void buttonSLBack_Click(object sender, EventArgs e)
