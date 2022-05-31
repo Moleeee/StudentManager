@@ -118,7 +118,7 @@ namespace WindowsFormsApp1
             this.panelChangePas.Controls.Add(this.textBoxOldPas);
             this.panelChangePas.Controls.Add(this.labelNewPas);
             this.panelChangePas.Controls.Add(this.labelOldPas);
-            this.panelChangePas.Location = new System.Drawing.Point(224, 76);
+            this.panelChangePas.Location = new System.Drawing.Point(227, 76);
             this.panelChangePas.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panelChangePas.Name = "panelChangePas";
             this.panelChangePas.Size = new System.Drawing.Size(323, 195);
@@ -234,6 +234,7 @@ namespace WindowsFormsApp1
             this.Controls.Add(this.BtnLogin);
             this.Controls.Add(this.textBoxPassword);
             this.Controls.Add(this.textBoxAccount);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "LoginForm01";

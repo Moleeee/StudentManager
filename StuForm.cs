@@ -36,10 +36,16 @@ namespace WindowsFormsApp1
         {
             InitializeComponent();
             this.Load += OpenMySQL;     //窗体载入时打开数据库连接
+            this.Load += ShowNowSno;
             //this.Load += InisAccountList;
             this.FormClosed += CloseMySQL;//窗体关闭后关闭数据库连接
         }
         
+        private void ShowNowSno(object sender, EventArgs e)
+        {
+            labelnowSno.Text = nowSno;
+        }
+
         private void CheckDeg()
         {
             string no = nowSno;
@@ -60,7 +66,7 @@ namespace WindowsFormsApp1
             dr.Close();
         }
 
-        private void ShowChoosedLesson()
+        private void ShowChoosedLesson()    //学生已选课查看
         {
             string choosedLesson="未选";
             string query = "select Slesson from stuinfo where Sno =" + nowSno;
@@ -87,6 +93,23 @@ namespace WindowsFormsApp1
             }
             labelChoosedLesson.Text = choosedLesson;
             dataReader.Close();
+        }
+
+        private void ChooseLessonConfirm()
+        {
+            string lesson = comboBoxSL.Text;
+            string sl = "update stuinfo set Slesson = '" + lesson + "' where Sno = " + nowSno;
+            MySqlCommand cmd = new MySqlCommand(sl, conn);
+            try
+            {
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("选课成功");
+                labelChoosedLesson.Text = lesson;
+            }
+            catch
+            {
+                MessageBox.Show("选课失败");
+            }
         }
 
         private void buttonCheck_Click(object sender, EventArgs e)
@@ -122,18 +145,7 @@ namespace WindowsFormsApp1
 
         private void buttonSLConfirm_Click(object sender, EventArgs e)
         {
-            string lesson = comboBoxSL.Text;
-            string sl= "update stuinfo set Slesson = '" + lesson + "' where Sno = " + nowSno;
-            MySqlCommand cmd = new MySqlCommand(sl, conn);
-            try
-            {
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("选课成功");
-            }
-            catch 
-            {
-                MessageBox.Show("选课失败");
-            }
+            ChooseLessonConfirm();
         }
 
         private void buttonSLBack_Click(object sender, EventArgs e)

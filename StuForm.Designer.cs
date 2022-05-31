@@ -34,11 +34,12 @@ namespace WindowsFormsApp1
             this.buttonSelectLesson = new System.Windows.Forms.Button();
             this.comboBoxSL = new System.Windows.Forms.ComboBox();
             this.panelSL = new System.Windows.Forms.Panel();
-            this.labelSL = new System.Windows.Forms.Label();
-            this.buttonSLConfirm = new System.Windows.Forms.Button();
-            this.buttonSLBack = new System.Windows.Forms.Button();
-            this.labelCL = new System.Windows.Forms.Label();
             this.labelChoosedLesson = new System.Windows.Forms.Label();
+            this.labelCL = new System.Windows.Forms.Label();
+            this.buttonSLBack = new System.Windows.Forms.Button();
+            this.buttonSLConfirm = new System.Windows.Forms.Button();
+            this.labelSL = new System.Windows.Forms.Label();
+            this.labelnowSno = new System.Windows.Forms.Label();
             this.panelSL.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -91,24 +92,23 @@ namespace WindowsFormsApp1
             this.panelSL.TabIndex = 2;
             this.panelSL.Visible = false;
             // 
-            // labelSL
+            // labelChoosedLesson
             // 
-            this.labelSL.AutoSize = true;
-            this.labelSL.Location = new System.Drawing.Point(24, 55);
-            this.labelSL.Name = "labelSL";
-            this.labelSL.Size = new System.Drawing.Size(45, 15);
-            this.labelSL.TabIndex = 1;
-            this.labelSL.Text = "选课:";
+            this.labelChoosedLesson.AutoSize = true;
+            this.labelChoosedLesson.Location = new System.Drawing.Point(105, 13);
+            this.labelChoosedLesson.Name = "labelChoosedLesson";
+            this.labelChoosedLesson.Size = new System.Drawing.Size(37, 15);
+            this.labelChoosedLesson.TabIndex = 5;
+            this.labelChoosedLesson.Text = "未选";
             // 
-            // buttonSLConfirm
+            // labelCL
             // 
-            this.buttonSLConfirm.Location = new System.Drawing.Point(51, 178);
-            this.buttonSLConfirm.Name = "buttonSLConfirm";
-            this.buttonSLConfirm.Size = new System.Drawing.Size(59, 23);
-            this.buttonSLConfirm.TabIndex = 2;
-            this.buttonSLConfirm.Text = "确认";
-            this.buttonSLConfirm.UseVisualStyleBackColor = true;
-            this.buttonSLConfirm.Click += new System.EventHandler(this.buttonSLConfirm_Click);
+            this.labelCL.AutoSize = true;
+            this.labelCL.Location = new System.Drawing.Point(24, 13);
+            this.labelCL.Name = "labelCL";
+            this.labelCL.Size = new System.Drawing.Size(75, 15);
+            this.labelCL.TabIndex = 4;
+            this.labelCL.Text = "当前已选:";
             // 
             // buttonSLBack
             // 
@@ -120,38 +120,51 @@ namespace WindowsFormsApp1
             this.buttonSLBack.UseVisualStyleBackColor = true;
             this.buttonSLBack.Click += new System.EventHandler(this.buttonSLBack_Click);
             // 
-            // labelCL
+            // buttonSLConfirm
             // 
-            this.labelCL.AutoSize = true;
-            this.labelCL.Location = new System.Drawing.Point(24, 13);
-            this.labelCL.Name = "labelCL";
-            this.labelCL.Size = new System.Drawing.Size(75, 15);
-            this.labelCL.TabIndex = 4;
-            this.labelCL.Text = "当前已选:";
+            this.buttonSLConfirm.Location = new System.Drawing.Point(51, 178);
+            this.buttonSLConfirm.Name = "buttonSLConfirm";
+            this.buttonSLConfirm.Size = new System.Drawing.Size(59, 23);
+            this.buttonSLConfirm.TabIndex = 2;
+            this.buttonSLConfirm.Text = "确认";
+            this.buttonSLConfirm.UseVisualStyleBackColor = true;
+            this.buttonSLConfirm.Click += new System.EventHandler(this.buttonSLConfirm_Click);
             // 
-            // labelChoosedLesson
+            // labelSL
             // 
-            this.labelChoosedLesson.AutoSize = true;
-            this.labelChoosedLesson.Location = new System.Drawing.Point(105, 13);
-            this.labelChoosedLesson.Name = "labelChoosedLesson";
-            this.labelChoosedLesson.Size = new System.Drawing.Size(37, 15);
-            this.labelChoosedLesson.TabIndex = 5;
-            this.labelChoosedLesson.Text = "未选";
+            this.labelSL.AutoSize = true;
+            this.labelSL.Location = new System.Drawing.Point(24, 55);
+            this.labelSL.Name = "labelSL";
+            this.labelSL.Size = new System.Drawing.Size(45, 15);
+            this.labelSL.TabIndex = 1;
+            this.labelSL.Text = "选课:";
+            // 
+            // labelnowSno
+            // 
+            this.labelnowSno.AutoSize = true;
+            this.labelnowSno.Location = new System.Drawing.Point(13, 13);
+            this.labelnowSno.Name = "labelnowSno";
+            this.labelnowSno.Size = new System.Drawing.Size(55, 15);
+            this.labelnowSno.TabIndex = 3;
+            this.labelnowSno.Text = "nowSno";
             // 
             // StuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.labelnowSno);
             this.Controls.Add(this.panelSL);
             this.Controls.Add(this.buttonSelectLesson);
             this.Controls.Add(this.buttonCheck);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "StuForm";
             this.Text = "StuForm";
             this.panelSL.ResumeLayout(false);
             this.panelSL.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -166,5 +179,6 @@ namespace WindowsFormsApp1
         private System.Windows.Forms.Label labelSL;
         private System.Windows.Forms.Label labelChoosedLesson;
         private System.Windows.Forms.Label labelCL;
+        private System.Windows.Forms.Label labelnowSno;
     }
 }

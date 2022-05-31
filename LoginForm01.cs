@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using MySql.Data.MySqlClient;
 using Microsoft.Win32.SafeHandles;
-using Sql_Read_Show_;
+using Sql_TAccount;
 using Sql_SAccount;
 using System.Runtime.CompilerServices;
 using Org.BouncyCastle.Crypto.Engines;
@@ -20,6 +20,9 @@ namespace WindowsFormsApp1
 {
     public partial class LoginForm01 : Form
     {
+        /*  管理员初始账号:2020;初始密码:bupt    */
+        /*  学生初始账号为学号，密码:bupt */
+
         public LoginForm01()
         {
             InitializeComponent();
@@ -38,9 +41,6 @@ namespace WindowsFormsApp1
 
         public string isTeacher="unknown";//登录身份
 
-        /*管理员初始账户:2020
-                初始密码:bupt
-        */
 
         private void Login(TextBox acc, TextBox pas,ComboBox identity)
         {
@@ -78,11 +78,6 @@ namespace WindowsFormsApp1
                 if (AccPasMatch == false) MessageBox.Show("密码错误");
             }
 
-        }
-
-        private void BtnLogin_Click(object sender, EventArgs e)
-        {
-            Login(textBoxAccount, textBoxPassword,comboBoxIsTeacher);
         }
 
         private void ConnectMySQL(object sender, EventArgs e)
@@ -175,11 +170,12 @@ namespace WindowsFormsApp1
 
         private void ChangePas()
         {
-            for (int i = 0; i < admins.Count; i++)
+            if (admins.Exists(t => t.Account == textBoxChangeAccount.Text))
             {
-                if ((textBoxChangeAccount.Text == admins[i].Account) && (textBoxOldPas.Text == admins[i].Password))
+                int index = admins.FindIndex(t => t.Account == textBoxChangeAccount.Text);
+                if (textBoxOldPas.Text == admins[index].Password)
                 {
-                    Console.WriteLine("1");
+                    //Console.WriteLine("1");
                     String connetStr = "server=localhost;" +
                     port +
                     "user=root;" +
@@ -191,11 +187,11 @@ namespace WindowsFormsApp1
                     {
                         conn.Open();
                         //更新密码
-                        string updatePas = "update teinfo set Password = '" + textBoxNewPas.Text + "' where Account = " + textBoxChangeAccount.Text;
+                        string updatePas = "update tinfo set Password = '" + textBoxNewPas.Text + "' where Account = " + textBoxChangeAccount.Text;
                         MySqlCommand cmd = new MySqlCommand(updatePas, conn);
                         cmd.ExecuteNonQuery();
-                        admins[i].Password = textBoxNewPas.Text;
-                        Console.WriteLine("change success");
+                        admins[index].Password = textBoxNewPas.Text;
+                        MessageBox.Show("修改成功");
                     }
                     catch
                     {
@@ -207,11 +203,57 @@ namespace WindowsFormsApp1
                         Console.WriteLine("close conn");
                     }
                     conn.Close();
+
                 }
                 else
                 {
                     MessageBox.Show("密码错误");
                 }
+            }
+
+            else if (list_saccount.Exists(t => t.sAccount == textBoxChangeAccount.Text))
+            {
+                int index = list_saccount.FindIndex(t => t.sAccount == textBoxChangeAccount.Text);
+                if (textBoxOldPas.Text == list_saccount[index].sPassword)
+                {
+                    //Console.WriteLine("1");
+                    String connetStr = "server=localhost;" +
+                    port +
+                    "user=root;" +
+                    "password=root; " +
+                    database;
+                    //连接MySQL
+                    MySqlConnection conn = new MySqlConnection(connetStr);
+                    try
+                    {
+                        conn.Open();
+                        //更新密码
+                        string updatePas = "update saccount set Password = '" + textBoxNewPas.Text + "' where Account = " + textBoxChangeAccount.Text;
+                        MySqlCommand cmd = new MySqlCommand(updatePas, conn);
+                        cmd.ExecuteNonQuery();
+                        list_saccount[index].sPassword = textBoxNewPas.Text;
+                        MessageBox.Show("修改成功");
+                    }
+                    catch
+                    {
+                        MessageBox.Show("failed");
+                    }
+                    finally
+                    {
+                        conn.Close();
+                        Console.WriteLine("close conn");
+                    }
+                    conn.Close();
+
+                }
+                else
+                {
+                    MessageBox.Show("密码错误");
+                }
+            }
+            else
+            {
+                MessageBox.Show("该账户不存在");
             }
         }
 
@@ -228,6 +270,11 @@ namespace WindowsFormsApp1
         private void BtnBackToLog_Click(object sender, EventArgs e)
         {
             this.panelChangePas.Visible = false;
+        }
+
+        private void BtnLogin_Click(object sender, EventArgs e)
+        {
+            Login(textBoxAccount, textBoxPassword, comboBoxIsTeacher);
         }
 
         private void LoginForm01_Load(object sender, EventArgs e)
@@ -376,7 +423,7 @@ namespace WindowsFormsApp1
         }
     }
 }
-namespace Sql_Read_Show_
+namespace Sql_TAccount
  {
      public partial class Admin
      {

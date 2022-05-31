@@ -52,48 +52,55 @@ namespace WindowsFormsApp1
         {
             string Sno = textBoxSno.Text, Sname = textBoxSname.Text,
                     Sdeg = textBoxSdeg.Text, Ssex = comboBoxSsex.Text,
-                    Sgrade = comboBoxSgrade.Text;
-            string ins = "insert into stuinfo(Sno,Sname,Sdeg,Ssex,Sgrade)" +
-                            "values('" + Sno + "','" + Sname + "','" + Sdeg + "','" + Ssex + "','" + Sgrade + "')";
-            try 
+                    Sgrade = comboBoxSgrade.Text, Slesson = "未选";
+            string ins = "insert into stuinfo(Sno,Sname,Sdeg,Ssex,Sgrade,Slesson)" +
+                            "values('" + Sno + "','" + Sname + "','" + Sdeg + "','" + Ssex + "','" + Sgrade + "','"+Slesson+"')";
+            bool corrNo = Sno.Length == 10;
+            bool isContent=true;
+            float deg = float.Parse(Sdeg);
+            if(Sname==""||Sdeg==""|| Ssex == "" || Sgrade == ""|| deg < 0 || deg > 100)
             {
-                
-                MySqlCommand cmd1 = new MySqlCommand(ins, conn);
-                cmd1.ExecuteNonQuery();
-                MessageBox.Show("添加成功");
-                students.Add(
-                    new Stu() { 
-                        Sno=textBoxSno.Text,
-                        Sname=textBoxSname.Text,
-                        Sdeg=float.Parse(textBoxSdeg.Text),
-                        Ssex=comboBoxSsex.Text,
-                        Sgrade=comboBoxSgrade.Text,
-                                });
-                //students.Sort();
-                addRecord_1(true, students);
-                editsAccount(true, Sno);
-                
-                dataGridViewShow.DataSource = null;
-                dataGridViewShow.DataSource = students;
-
-                textBoxSno.Text = null;
-                textBoxSname.Text = null;
-                textBoxSdeg.Text = null;
-                comboBoxSsex.Text = null;
-                comboBoxSgrade.Text = null;
-            }
-            catch
-            {
-                Console.WriteLine("添加出现错误");
-                throw;
+                isContent = false;
             }
 
-            try
+            if (corrNo==true&&isContent==true)
             {
+                try
+                {
 
+                    MySqlCommand cmd1 = new MySqlCommand(ins, conn);
+                    cmd1.ExecuteNonQuery();
+                    MessageBox.Show("添加成功");
+                    students.Add(
+                        new Stu()
+                        {
+                            Sno = textBoxSno.Text,
+                            Sname = textBoxSname.Text,
+                            Sdeg = float.Parse(textBoxSdeg.Text),
+                            Ssex = comboBoxSsex.Text,
+                            Sgrade = comboBoxSgrade.Text,
+                        });
+                    addRecord_1(true, students);
+                    editsAccount(true, Sno);
+
+                    dataGridViewShow.DataSource = null;
+                    dataGridViewShow.DataSource = students;
+
+                    textBoxSno.Text = null;
+                    textBoxSname.Text = null;
+                    textBoxSdeg.Text = null;
+                    comboBoxSsex.Text = null;
+                    comboBoxSgrade.Text = null;
+                }
+                catch
+                {
+                    Console.WriteLine("添加出现错误");
+                    //throw;
+                }
             }
-            catch
+            else
             {
+                MessageBox.Show("请检查学号格式以及各项内容是否正确填写", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
         }
@@ -165,7 +172,8 @@ namespace WindowsFormsApp1
                     students.RemoveAll((stu) => stu.Sno == delNo);
                     dataGridViewShow.DataSource = null;
                     dataGridViewShow.DataSource = students;
-                    MessageBox.Show("删除成功");
+                    MessageBox.Show("学生信息删除成功");
+                    textBoxDel.Clear();
                 }
                 catch
                 {
@@ -203,7 +211,7 @@ namespace WindowsFormsApp1
                                     "姓名:" + dr.GetString("Sname") + "\t" +
                                     "成绩:" + dr.GetString("Sdeg") + "\t" +
                                     "性别:" + dr.GetString("Ssex") + "\t" +
-                                    "年级:" + dr.GetString("Sgrade"));
+                                    "年级:" + dr.GetString("Sgrade"), "查找结果");
                 }
                 else
                 {
@@ -246,11 +254,11 @@ namespace WindowsFormsApp1
                 {
                     MySqlCommand cmd = new MySqlCommand(ins, conn);
                     cmd.ExecuteNonQuery();
-                    MessageBox.Show("学生账号插入成功");
+                    MessageBox.Show("学生账号添加成功");
                 }
                 catch
                 {
-                    MessageBox.Show("学生账号插入失败");
+                    MessageBox.Show("学生账号添加失败");
                 }
             }
             else if(isadd==false)
@@ -266,6 +274,58 @@ namespace WindowsFormsApp1
                 catch
                 {
                     MessageBox.Show("学生账号删除失败");
+                }
+            }
+        }
+
+        private void updateStuInfo(TextBox sno,TextBox sname,TextBox sdeg,ComboBox ssex,ComboBox sgrade) 
+        {
+            float deg = float.Parse(sdeg.Text);
+            if (sno.Text == "" || sname.Text == "" || sdeg.Text == "" || ssex.Text == "" || sgrade.Text == "" || deg < 0 || deg > 100)
+            {
+                MessageBox.Show("请检查学号格式以及各项内容是否正确填写", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                Stu stu = students.Find(t => t.Sno == sno.Text);
+                if (stu != null)
+                {
+                    stu.Sno = sno.Text;
+                    stu.Sname = sname.Text;
+                    stu.Sdeg = float.Parse(sdeg.Text);
+                    stu.Ssex = ssex.Text;
+                    stu.Sgrade = sgrade.Text;
+                    //MessageBox.Show(stu.Sno + stu.Sname + stu.Sdeg);
+                    string addHis = "修改了学号为" + sno.Text + "的学生信息";
+                    try
+                    {
+                        string update = "update stuinfo set Sname = '" + sname.Text
+                            + "' , Sdeg = '" + sdeg.Text
+                            + "' , Ssex = '" + ssex.Text
+                            + "' , Sgrade = '" + sgrade.Text
+                            + "' where Sno = " + sno.Text;
+                        MySqlCommand cmd = new MySqlCommand(update, conn);
+                        cmd.ExecuteNonQuery();
+
+                        sno.Clear();
+                        sname.Clear();
+                        sdeg.Clear();
+                        ssex.Text = null;
+                        sgrade.Text = null;
+                        listBoxHistory.Items.Add(addHis);
+                        MessageBox.Show("修改成功");
+                    }
+                    catch
+                    {
+                        //MessageBox.Show("修改失败");
+                        throw;
+                    }
+                    dataGridViewShow.DataSource = null;
+                    dataGridViewShow.DataSource = students;
+                }
+                else
+                {
+                    MessageBox.Show("系统中无此学号");
                 }
             }
         }
@@ -297,26 +357,8 @@ namespace WindowsFormsApp1
 
         private void buttonAddConfirm_Click(object sender, EventArgs e)
         {
-            //addStudent();
-
             addStudent_1();
-
-            //CreateTableStuInfo();
-
-
-            /*try
-            {
-                //string sql = "CREATE TABLE " + "test" + "(Type char(20) NOT NULL,UNIQUE(Type))";
-                string Type = "1";
-                string ins = "insert into test(Type)values('" + Type + "')";
-                MySqlCommand cmd = new MySqlCommand(ins, conn);
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("success");
-            }
-            catch
-            {
-                MessageBox.Show("fail");
-            }*/
+           
         }
 
         private void buttonAllSinfo_Click(object sender, EventArgs e)
@@ -370,6 +412,11 @@ namespace WindowsFormsApp1
         {
             //searchNo(textBoxSearch);
             searchNo_1(textBoxSearch);
+        }
+
+        private void buttonUpdate_Click(object sender, EventArgs e)
+        {
+            updateStuInfo(textBoxSno, textBoxSname, textBoxSdeg, comboBoxSsex, comboBoxSgrade);
         }
 
         #endregion

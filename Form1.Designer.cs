@@ -35,6 +35,7 @@ namespace WindowsFormsApp1
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.buttonAddSinfo = new System.Windows.Forms.Button();
             this.panelAddSinfo = new System.Windows.Forms.Panel();
+            this.buttonUpdate = new System.Windows.Forms.Button();
             this.comboBoxSgrade = new System.Windows.Forms.ComboBox();
             this.labelSgrade = new System.Windows.Forms.Label();
             this.labelSsex = new System.Windows.Forms.Label();
@@ -83,12 +84,13 @@ namespace WindowsFormsApp1
             this.buttonAddSinfo.Name = "buttonAddSinfo";
             this.buttonAddSinfo.Size = new System.Drawing.Size(164, 29);
             this.buttonAddSinfo.TabIndex = 1;
-            this.buttonAddSinfo.Text = "添加学生信息";
+            this.buttonAddSinfo.Text = "增改学生信息";
             this.buttonAddSinfo.UseVisualStyleBackColor = true;
             this.buttonAddSinfo.Click += new System.EventHandler(this.buttonAddSinfo_Click);
             // 
             // panelAddSinfo
             // 
+            this.panelAddSinfo.Controls.Add(this.buttonUpdate);
             this.panelAddSinfo.Controls.Add(this.comboBoxSgrade);
             this.panelAddSinfo.Controls.Add(this.labelSgrade);
             this.panelAddSinfo.Controls.Add(this.labelSsex);
@@ -107,6 +109,17 @@ namespace WindowsFormsApp1
             this.panelAddSinfo.TabIndex = 3;
             this.panelAddSinfo.Visible = false;
             // 
+            // buttonUpdate
+            // 
+            this.buttonUpdate.Location = new System.Drawing.Point(269, 220);
+            this.buttonUpdate.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonUpdate.Name = "buttonUpdate";
+            this.buttonUpdate.Size = new System.Drawing.Size(100, 29);
+            this.buttonUpdate.TabIndex = 12;
+            this.buttonUpdate.Text = "修改";
+            this.buttonUpdate.UseVisualStyleBackColor = true;
+            this.buttonUpdate.Click += new System.EventHandler(this.buttonUpdate_Click);
+            // 
             // comboBoxSgrade
             // 
             this.comboBoxSgrade.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -119,7 +132,7 @@ namespace WindowsFormsApp1
             this.comboBoxSgrade.Location = new System.Drawing.Point(161, 163);
             this.comboBoxSgrade.Name = "comboBoxSgrade";
             this.comboBoxSgrade.Size = new System.Drawing.Size(200, 23);
-            this.comboBoxSgrade.TabIndex = 12;
+            this.comboBoxSgrade.TabIndex = 10;
             // 
             // labelSgrade
             // 
@@ -154,12 +167,12 @@ namespace WindowsFormsApp1
             // 
             // buttonAddConform
             // 
-            this.buttonAddConform.Location = new System.Drawing.Point(171, 222);
+            this.buttonAddConform.Location = new System.Drawing.Point(111, 220);
             this.buttonAddConform.Margin = new System.Windows.Forms.Padding(4);
             this.buttonAddConform.Name = "buttonAddConform";
             this.buttonAddConform.Size = new System.Drawing.Size(100, 29);
-            this.buttonAddConform.TabIndex = 4;
-            this.buttonAddConform.Text = "确认";
+            this.buttonAddConform.TabIndex = 11;
+            this.buttonAddConform.Text = "添加";
             this.buttonAddConform.UseVisualStyleBackColor = true;
             this.buttonAddConform.Click += new System.EventHandler(this.buttonAddConfirm_Click);
             // 
@@ -216,12 +229,13 @@ namespace WindowsFormsApp1
             this.textBoxSno.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxSno.Name = "textBoxSno";
             this.textBoxSno.Size = new System.Drawing.Size(200, 25);
-            this.textBoxSno.TabIndex = 3;
+            this.textBoxSno.TabIndex = 6;
             this.textBoxSno.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_KeyPress);
             // 
             // labelTitle
             // 
             this.labelTitle.AutoSize = true;
+            this.labelTitle.Enabled = false;
             this.labelTitle.Location = new System.Drawing.Point(13, 28);
             this.labelTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelTitle.Name = "labelTitle";
@@ -247,7 +261,7 @@ namespace WindowsFormsApp1
             this.buttonDelConform.Margin = new System.Windows.Forms.Padding(4);
             this.buttonDelConform.Name = "buttonDelConform";
             this.buttonDelConform.Size = new System.Drawing.Size(100, 29);
-            this.buttonDelConform.TabIndex = 2;
+            this.buttonDelConform.TabIndex = 13;
             this.buttonDelConform.Text = "删除";
             this.buttonDelConform.UseVisualStyleBackColor = true;
             this.buttonDelConform.Click += new System.EventHandler(this.buttonDelConfirm_Click);
@@ -258,7 +272,7 @@ namespace WindowsFormsApp1
             this.textBoxDel.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxDel.Name = "textBoxDel";
             this.textBoxDel.Size = new System.Drawing.Size(200, 25);
-            this.textBoxDel.TabIndex = 1;
+            this.textBoxDel.TabIndex = 12;
             // 
             // labelDel
             // 
@@ -276,8 +290,8 @@ namespace WindowsFormsApp1
             this.buttonAllSinfo.Margin = new System.Windows.Forms.Padding(4);
             this.buttonAllSinfo.Name = "buttonAllSinfo";
             this.buttonAllSinfo.Size = new System.Drawing.Size(164, 29);
-            this.buttonAllSinfo.TabIndex = 6;
-            this.buttonAllSinfo.Text = "所有学生信息";
+            this.buttonAllSinfo.TabIndex = 3;
+            this.buttonAllSinfo.Text = "显示所有信息";
             this.buttonAllSinfo.UseVisualStyleBackColor = true;
             this.buttonAllSinfo.Click += new System.EventHandler(this.buttonAllSinfo_Click);
             // 
@@ -287,7 +301,7 @@ namespace WindowsFormsApp1
             this.buttonDelSinfo.Margin = new System.Windows.Forms.Padding(4);
             this.buttonDelSinfo.Name = "buttonDelSinfo";
             this.buttonDelSinfo.Size = new System.Drawing.Size(163, 29);
-            this.buttonDelSinfo.TabIndex = 7;
+            this.buttonDelSinfo.TabIndex = 2;
             this.buttonDelSinfo.Text = "删除学生信息";
             this.buttonDelSinfo.UseVisualStyleBackColor = true;
             this.buttonDelSinfo.Click += new System.EventHandler(this.buttonDelSinfo_Click);
@@ -298,8 +312,8 @@ namespace WindowsFormsApp1
             this.buttonGetSAverage.Margin = new System.Windows.Forms.Padding(4);
             this.buttonGetSAverage.Name = "buttonGetSAverage";
             this.buttonGetSAverage.Size = new System.Drawing.Size(163, 29);
-            this.buttonGetSAverage.TabIndex = 8;
-            this.buttonGetSAverage.Text = "学生平均分数";
+            this.buttonGetSAverage.TabIndex = 4;
+            this.buttonGetSAverage.Text = "查看平均分数";
             this.buttonGetSAverage.UseVisualStyleBackColor = true;
             this.buttonGetSAverage.Click += new System.EventHandler(this.buttonGetSAverage_Click);
             // 
@@ -351,8 +365,8 @@ namespace WindowsFormsApp1
             this.buttonSearchSinfo.Location = new System.Drawing.Point(16, 264);
             this.buttonSearchSinfo.Name = "buttonSearchSinfo";
             this.buttonSearchSinfo.Size = new System.Drawing.Size(163, 28);
-            this.buttonSearchSinfo.TabIndex = 15;
-            this.buttonSearchSinfo.Text = "查找学生信息";
+            this.buttonSearchSinfo.TabIndex = 5;
+            this.buttonSearchSinfo.Text = "查找特定学号";
             this.buttonSearchSinfo.UseVisualStyleBackColor = true;
             this.buttonSearchSinfo.Click += new System.EventHandler(this.buttonSearchSinfo_Click);
             // 
@@ -372,7 +386,7 @@ namespace WindowsFormsApp1
             this.buttonSearchConfirm.Location = new System.Drawing.Point(169, 157);
             this.buttonSearchConfirm.Name = "buttonSearchConfirm";
             this.buttonSearchConfirm.Size = new System.Drawing.Size(75, 23);
-            this.buttonSearchConfirm.TabIndex = 2;
+            this.buttonSearchConfirm.TabIndex = 15;
             this.buttonSearchConfirm.Text = "查找";
             this.buttonSearchConfirm.UseVisualStyleBackColor = true;
             this.buttonSearchConfirm.Click += new System.EventHandler(this.buttonSearchConfirm_Click);
@@ -382,7 +396,7 @@ namespace WindowsFormsApp1
             this.textBoxSearch.Location = new System.Drawing.Point(149, 55);
             this.textBoxSearch.Name = "textBoxSearch";
             this.textBoxSearch.Size = new System.Drawing.Size(171, 25);
-            this.textBoxSearch.TabIndex = 1;
+            this.textBoxSearch.TabIndex = 14;
             // 
             // labelSearch
             // 
@@ -425,10 +439,10 @@ namespace WindowsFormsApp1
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1191, 562);
-            this.Controls.Add(this.panelSearchSinfo);
-            this.Controls.Add(this.dataGridViewShow);
             this.Controls.Add(this.panelAddSinfo);
+            this.Controls.Add(this.panelSearchSinfo);
             this.Controls.Add(this.panelDelSinfo);
+            this.Controls.Add(this.dataGridViewShow);
             this.Controls.Add(this.buttonSearchSinfo);
             this.Controls.Add(this.listBoxShow);
             this.Controls.Add(this.listBoxHistory);
@@ -439,6 +453,7 @@ namespace WindowsFormsApp1
             this.Controls.Add(this.buttonAllSinfo);
             this.Controls.Add(this.buttonAddSinfo);
             this.Controls.Add(this.labelTitle);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
@@ -497,6 +512,7 @@ namespace WindowsFormsApp1
         private AdminDataSet adminDataSet;
         private System.Windows.Forms.BindingSource stuinfoBindingSource;
         private AdminDataSetTableAdapters.stuinfoTableAdapter stuinfoTableAdapter;
+        private System.Windows.Forms.Button buttonUpdate;
     }
 }
 
