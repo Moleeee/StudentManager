@@ -79,10 +79,9 @@ namespace WindowsFormsApp1
             // 
             // buttonAddSinfo
             // 
-            this.buttonAddSinfo.Location = new System.Drawing.Point(16, 61);
-            this.buttonAddSinfo.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonAddSinfo.Location = new System.Drawing.Point(12, 49);
             this.buttonAddSinfo.Name = "buttonAddSinfo";
-            this.buttonAddSinfo.Size = new System.Drawing.Size(164, 29);
+            this.buttonAddSinfo.Size = new System.Drawing.Size(123, 23);
             this.buttonAddSinfo.TabIndex = 1;
             this.buttonAddSinfo.Text = "增改学生信息";
             this.buttonAddSinfo.UseVisualStyleBackColor = true;
@@ -102,19 +101,17 @@ namespace WindowsFormsApp1
             this.panelAddSinfo.Controls.Add(this.labelSname);
             this.panelAddSinfo.Controls.Add(this.labelSno);
             this.panelAddSinfo.Controls.Add(this.textBoxSno);
-            this.panelAddSinfo.Location = new System.Drawing.Point(192, 61);
-            this.panelAddSinfo.Margin = new System.Windows.Forms.Padding(4);
+            this.panelAddSinfo.Location = new System.Drawing.Point(144, 49);
             this.panelAddSinfo.Name = "panelAddSinfo";
-            this.panelAddSinfo.Size = new System.Drawing.Size(445, 285);
+            this.panelAddSinfo.Size = new System.Drawing.Size(334, 228);
             this.panelAddSinfo.TabIndex = 3;
             this.panelAddSinfo.Visible = false;
             // 
             // buttonUpdate
             // 
-            this.buttonUpdate.Location = new System.Drawing.Point(269, 220);
-            this.buttonUpdate.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonUpdate.Location = new System.Drawing.Point(202, 176);
             this.buttonUpdate.Name = "buttonUpdate";
-            this.buttonUpdate.Size = new System.Drawing.Size(100, 29);
+            this.buttonUpdate.Size = new System.Drawing.Size(75, 23);
             this.buttonUpdate.TabIndex = 12;
             this.buttonUpdate.Text = "修改";
             this.buttonUpdate.UseVisualStyleBackColor = true;
@@ -129,26 +126,29 @@ namespace WindowsFormsApp1
             "大二",
             "大三",
             "大四"});
-            this.comboBoxSgrade.Location = new System.Drawing.Point(161, 163);
+            this.comboBoxSgrade.Location = new System.Drawing.Point(121, 130);
+            this.comboBoxSgrade.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.comboBoxSgrade.Name = "comboBoxSgrade";
-            this.comboBoxSgrade.Size = new System.Drawing.Size(200, 23);
+            this.comboBoxSgrade.Size = new System.Drawing.Size(151, 20);
             this.comboBoxSgrade.TabIndex = 10;
             // 
             // labelSgrade
             // 
             this.labelSgrade.AutoSize = true;
-            this.labelSgrade.Location = new System.Drawing.Point(69, 163);
+            this.labelSgrade.Location = new System.Drawing.Point(52, 130);
+            this.labelSgrade.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelSgrade.Name = "labelSgrade";
-            this.labelSgrade.Size = new System.Drawing.Size(52, 15);
+            this.labelSgrade.Size = new System.Drawing.Size(41, 12);
             this.labelSgrade.TabIndex = 11;
             this.labelSgrade.Text = "年级：";
             // 
             // labelSsex
             // 
             this.labelSsex.AutoSize = true;
-            this.labelSsex.Location = new System.Drawing.Point(69, 126);
+            this.labelSsex.Location = new System.Drawing.Point(52, 101);
+            this.labelSsex.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelSsex.Name = "labelSsex";
-            this.labelSsex.Size = new System.Drawing.Size(52, 15);
+            this.labelSsex.Size = new System.Drawing.Size(41, 12);
             this.labelSsex.TabIndex = 10;
             this.labelSsex.Text = "性别：";
             // 
@@ -160,17 +160,17 @@ namespace WindowsFormsApp1
             this.comboBoxSsex.Items.AddRange(new object[] {
             "男",
             "女"});
-            this.comboBoxSsex.Location = new System.Drawing.Point(161, 123);
+            this.comboBoxSsex.Location = new System.Drawing.Point(121, 98);
+            this.comboBoxSsex.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.comboBoxSsex.Name = "comboBoxSsex";
-            this.comboBoxSsex.Size = new System.Drawing.Size(200, 23);
+            this.comboBoxSsex.Size = new System.Drawing.Size(151, 20);
             this.comboBoxSsex.TabIndex = 9;
             // 
             // buttonAddConform
             // 
-            this.buttonAddConform.Location = new System.Drawing.Point(111, 220);
-            this.buttonAddConform.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonAddConform.Location = new System.Drawing.Point(83, 176);
             this.buttonAddConform.Name = "buttonAddConform";
-            this.buttonAddConform.Size = new System.Drawing.Size(100, 29);
+            this.buttonAddConform.Size = new System.Drawing.Size(75, 23);
             this.buttonAddConform.TabIndex = 11;
             this.buttonAddConform.Text = "添加";
             this.buttonAddConform.UseVisualStyleBackColor = true;
@@ -178,57 +178,51 @@ namespace WindowsFormsApp1
             // 
             // textBoxSdeg
             // 
-            this.textBoxSdeg.Location = new System.Drawing.Point(161, 82);
-            this.textBoxSdeg.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxSdeg.Location = new System.Drawing.Point(121, 66);
             this.textBoxSdeg.Name = "textBoxSdeg";
-            this.textBoxSdeg.Size = new System.Drawing.Size(200, 25);
+            this.textBoxSdeg.Size = new System.Drawing.Size(151, 21);
             this.textBoxSdeg.TabIndex = 8;
             this.textBoxSdeg.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_KeyPress);
             // 
             // textBoxSname
             // 
-            this.textBoxSname.Location = new System.Drawing.Point(161, 45);
-            this.textBoxSname.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxSname.Location = new System.Drawing.Point(121, 36);
             this.textBoxSname.Name = "textBoxSname";
-            this.textBoxSname.Size = new System.Drawing.Size(200, 25);
+            this.textBoxSname.Size = new System.Drawing.Size(151, 21);
             this.textBoxSname.TabIndex = 7;
             // 
             // labelSdeg
             // 
             this.labelSdeg.AutoSize = true;
-            this.labelSdeg.Location = new System.Drawing.Point(69, 86);
-            this.labelSdeg.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelSdeg.Location = new System.Drawing.Point(52, 69);
             this.labelSdeg.Name = "labelSdeg";
-            this.labelSdeg.Size = new System.Drawing.Size(52, 15);
+            this.labelSdeg.Size = new System.Drawing.Size(41, 12);
             this.labelSdeg.TabIndex = 6;
             this.labelSdeg.Text = "成绩：";
             // 
             // labelSname
             // 
             this.labelSname.AutoSize = true;
-            this.labelSname.Location = new System.Drawing.Point(69, 49);
-            this.labelSname.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelSname.Location = new System.Drawing.Point(52, 39);
             this.labelSname.Name = "labelSname";
-            this.labelSname.Size = new System.Drawing.Size(52, 15);
+            this.labelSname.Size = new System.Drawing.Size(41, 12);
             this.labelSname.TabIndex = 5;
             this.labelSname.Text = "姓名：";
             // 
             // labelSno
             // 
             this.labelSno.AutoSize = true;
-            this.labelSno.Location = new System.Drawing.Point(69, 7);
-            this.labelSno.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelSno.Location = new System.Drawing.Point(52, 6);
             this.labelSno.Name = "labelSno";
-            this.labelSno.Size = new System.Drawing.Size(52, 15);
+            this.labelSno.Size = new System.Drawing.Size(41, 12);
             this.labelSno.TabIndex = 4;
             this.labelSno.Text = "学号：";
             // 
             // textBoxSno
             // 
-            this.textBoxSno.Location = new System.Drawing.Point(161, 3);
-            this.textBoxSno.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxSno.Location = new System.Drawing.Point(121, 2);
             this.textBoxSno.Name = "textBoxSno";
-            this.textBoxSno.Size = new System.Drawing.Size(200, 25);
+            this.textBoxSno.Size = new System.Drawing.Size(151, 21);
             this.textBoxSno.TabIndex = 6;
             this.textBoxSno.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_KeyPress);
             // 
@@ -236,10 +230,9 @@ namespace WindowsFormsApp1
             // 
             this.labelTitle.AutoSize = true;
             this.labelTitle.Enabled = false;
-            this.labelTitle.Location = new System.Drawing.Point(13, 28);
-            this.labelTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelTitle.Location = new System.Drawing.Point(10, 22);
             this.labelTitle.Name = "labelTitle";
-            this.labelTitle.Size = new System.Drawing.Size(157, 15);
+            this.labelTitle.Size = new System.Drawing.Size(125, 12);
             this.labelTitle.TabIndex = 4;
             this.labelTitle.Text = "欢迎使用学生管理系统";
             // 
@@ -248,19 +241,17 @@ namespace WindowsFormsApp1
             this.panelDelSinfo.Controls.Add(this.buttonDelConform);
             this.panelDelSinfo.Controls.Add(this.textBoxDel);
             this.panelDelSinfo.Controls.Add(this.labelDel);
-            this.panelDelSinfo.Location = new System.Drawing.Point(192, 61);
-            this.panelDelSinfo.Margin = new System.Windows.Forms.Padding(4);
+            this.panelDelSinfo.Location = new System.Drawing.Point(144, 49);
             this.panelDelSinfo.Name = "panelDelSinfo";
-            this.panelDelSinfo.Size = new System.Drawing.Size(449, 249);
+            this.panelDelSinfo.Size = new System.Drawing.Size(337, 199);
             this.panelDelSinfo.TabIndex = 4;
             this.panelDelSinfo.Visible = false;
             // 
             // buttonDelConform
             // 
-            this.buttonDelConform.Location = new System.Drawing.Point(171, 127);
-            this.buttonDelConform.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonDelConform.Location = new System.Drawing.Point(128, 102);
             this.buttonDelConform.Name = "buttonDelConform";
-            this.buttonDelConform.Size = new System.Drawing.Size(100, 29);
+            this.buttonDelConform.Size = new System.Drawing.Size(75, 23);
             this.buttonDelConform.TabIndex = 13;
             this.buttonDelConform.Text = "删除";
             this.buttonDelConform.UseVisualStyleBackColor = true;
@@ -268,28 +259,25 @@ namespace WindowsFormsApp1
             // 
             // textBoxDel
             // 
-            this.textBoxDel.Location = new System.Drawing.Point(163, 16);
-            this.textBoxDel.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxDel.Location = new System.Drawing.Point(122, 13);
             this.textBoxDel.Name = "textBoxDel";
-            this.textBoxDel.Size = new System.Drawing.Size(200, 25);
+            this.textBoxDel.Size = new System.Drawing.Size(151, 21);
             this.textBoxDel.TabIndex = 12;
             // 
             // labelDel
             // 
             this.labelDel.AutoSize = true;
-            this.labelDel.Location = new System.Drawing.Point(64, 22);
-            this.labelDel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelDel.Location = new System.Drawing.Point(48, 18);
             this.labelDel.Name = "labelDel";
-            this.labelDel.Size = new System.Drawing.Size(75, 15);
+            this.labelDel.Size = new System.Drawing.Size(59, 12);
             this.labelDel.TabIndex = 0;
             this.labelDel.Text = "删除学号:";
             // 
             // buttonAllSinfo
             // 
-            this.buttonAllSinfo.Location = new System.Drawing.Point(16, 156);
-            this.buttonAllSinfo.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonAllSinfo.Location = new System.Drawing.Point(12, 125);
             this.buttonAllSinfo.Name = "buttonAllSinfo";
-            this.buttonAllSinfo.Size = new System.Drawing.Size(164, 29);
+            this.buttonAllSinfo.Size = new System.Drawing.Size(123, 23);
             this.buttonAllSinfo.TabIndex = 3;
             this.buttonAllSinfo.Text = "显示所有信息";
             this.buttonAllSinfo.UseVisualStyleBackColor = true;
@@ -297,10 +285,9 @@ namespace WindowsFormsApp1
             // 
             // buttonDelSinfo
             // 
-            this.buttonDelSinfo.Location = new System.Drawing.Point(17, 106);
-            this.buttonDelSinfo.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonDelSinfo.Location = new System.Drawing.Point(13, 85);
             this.buttonDelSinfo.Name = "buttonDelSinfo";
-            this.buttonDelSinfo.Size = new System.Drawing.Size(163, 29);
+            this.buttonDelSinfo.Size = new System.Drawing.Size(122, 23);
             this.buttonDelSinfo.TabIndex = 2;
             this.buttonDelSinfo.Text = "删除学生信息";
             this.buttonDelSinfo.UseVisualStyleBackColor = true;
@@ -308,10 +295,9 @@ namespace WindowsFormsApp1
             // 
             // buttonGetSAverage
             // 
-            this.buttonGetSAverage.Location = new System.Drawing.Point(16, 210);
-            this.buttonGetSAverage.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonGetSAverage.Location = new System.Drawing.Point(12, 168);
             this.buttonGetSAverage.Name = "buttonGetSAverage";
-            this.buttonGetSAverage.Size = new System.Drawing.Size(163, 29);
+            this.buttonGetSAverage.Size = new System.Drawing.Size(122, 23);
             this.buttonGetSAverage.TabIndex = 4;
             this.buttonGetSAverage.Text = "查看平均分数";
             this.buttonGetSAverage.UseVisualStyleBackColor = true;
@@ -320,10 +306,9 @@ namespace WindowsFormsApp1
             // labelDate
             // 
             this.labelDate.AutoSize = true;
-            this.labelDate.Location = new System.Drawing.Point(16, 536);
-            this.labelDate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelDate.Location = new System.Drawing.Point(12, 429);
             this.labelDate.Name = "labelDate";
-            this.labelDate.Size = new System.Drawing.Size(0, 15);
+            this.labelDate.Size = new System.Drawing.Size(0, 12);
             this.labelDate.TabIndex = 9;
             // 
             // timer1
@@ -333,10 +318,9 @@ namespace WindowsFormsApp1
             // labelHistory
             // 
             this.labelHistory.AutoSize = true;
-            this.labelHistory.Location = new System.Drawing.Point(651, 11);
-            this.labelHistory.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelHistory.Location = new System.Drawing.Point(488, 9);
             this.labelHistory.Name = "labelHistory";
-            this.labelHistory.Size = new System.Drawing.Size(75, 15);
+            this.labelHistory.Size = new System.Drawing.Size(59, 12);
             this.labelHistory.TabIndex = 10;
             this.labelHistory.Text = "历史记录:";
             // 
@@ -344,27 +328,28 @@ namespace WindowsFormsApp1
             // 
             this.listBoxHistory.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.listBoxHistory.FormattingEnabled = true;
-            this.listBoxHistory.ItemHeight = 15;
-            this.listBoxHistory.Location = new System.Drawing.Point(645, 32);
-            this.listBoxHistory.Margin = new System.Windows.Forms.Padding(4);
+            this.listBoxHistory.ItemHeight = 12;
+            this.listBoxHistory.Location = new System.Drawing.Point(484, 26);
             this.listBoxHistory.Name = "listBoxHistory";
-            this.listBoxHistory.Size = new System.Drawing.Size(542, 214);
+            this.listBoxHistory.Size = new System.Drawing.Size(408, 172);
             this.listBoxHistory.TabIndex = 11;
             // 
             // listBoxShow
             // 
             this.listBoxShow.FormattingEnabled = true;
-            this.listBoxShow.ItemHeight = 15;
-            this.listBoxShow.Location = new System.Drawing.Point(645, 298);
+            this.listBoxShow.ItemHeight = 12;
+            this.listBoxShow.Location = new System.Drawing.Point(484, 238);
+            this.listBoxShow.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.listBoxShow.Name = "listBoxShow";
-            this.listBoxShow.Size = new System.Drawing.Size(542, 259);
+            this.listBoxShow.Size = new System.Drawing.Size(408, 208);
             this.listBoxShow.TabIndex = 14;
             // 
             // buttonSearchSinfo
             // 
-            this.buttonSearchSinfo.Location = new System.Drawing.Point(16, 264);
+            this.buttonSearchSinfo.Location = new System.Drawing.Point(12, 211);
+            this.buttonSearchSinfo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonSearchSinfo.Name = "buttonSearchSinfo";
-            this.buttonSearchSinfo.Size = new System.Drawing.Size(163, 28);
+            this.buttonSearchSinfo.Size = new System.Drawing.Size(122, 22);
             this.buttonSearchSinfo.TabIndex = 5;
             this.buttonSearchSinfo.Text = "查找特定学号";
             this.buttonSearchSinfo.UseVisualStyleBackColor = true;
@@ -375,17 +360,19 @@ namespace WindowsFormsApp1
             this.panelSearchSinfo.Controls.Add(this.buttonSearchConfirm);
             this.panelSearchSinfo.Controls.Add(this.textBoxSearch);
             this.panelSearchSinfo.Controls.Add(this.labelSearch);
-            this.panelSearchSinfo.Location = new System.Drawing.Point(192, 28);
+            this.panelSearchSinfo.Location = new System.Drawing.Point(144, 22);
+            this.panelSearchSinfo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panelSearchSinfo.Name = "panelSearchSinfo";
-            this.panelSearchSinfo.Size = new System.Drawing.Size(445, 260);
+            this.panelSearchSinfo.Size = new System.Drawing.Size(334, 208);
             this.panelSearchSinfo.TabIndex = 16;
             this.panelSearchSinfo.Visible = false;
             // 
             // buttonSearchConfirm
             // 
-            this.buttonSearchConfirm.Location = new System.Drawing.Point(169, 157);
+            this.buttonSearchConfirm.Location = new System.Drawing.Point(127, 126);
+            this.buttonSearchConfirm.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonSearchConfirm.Name = "buttonSearchConfirm";
-            this.buttonSearchConfirm.Size = new System.Drawing.Size(75, 23);
+            this.buttonSearchConfirm.Size = new System.Drawing.Size(76, 26);
             this.buttonSearchConfirm.TabIndex = 15;
             this.buttonSearchConfirm.Text = "查找";
             this.buttonSearchConfirm.UseVisualStyleBackColor = true;
@@ -393,17 +380,19 @@ namespace WindowsFormsApp1
             // 
             // textBoxSearch
             // 
-            this.textBoxSearch.Location = new System.Drawing.Point(149, 55);
+            this.textBoxSearch.Location = new System.Drawing.Point(112, 44);
+            this.textBoxSearch.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBoxSearch.Name = "textBoxSearch";
-            this.textBoxSearch.Size = new System.Drawing.Size(171, 25);
+            this.textBoxSearch.Size = new System.Drawing.Size(129, 21);
             this.textBoxSearch.TabIndex = 14;
             // 
             // labelSearch
             // 
             this.labelSearch.AutoSize = true;
-            this.labelSearch.Location = new System.Drawing.Point(52, 61);
+            this.labelSearch.Location = new System.Drawing.Point(39, 49);
+            this.labelSearch.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelSearch.Name = "labelSearch";
-            this.labelSearch.Size = new System.Drawing.Size(82, 15);
+            this.labelSearch.Size = new System.Drawing.Size(65, 12);
             this.labelSearch.TabIndex = 0;
             this.labelSearch.Text = "查找学号：";
             // 
@@ -412,12 +401,13 @@ namespace WindowsFormsApp1
             this.dataGridViewShow.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewShow.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.dataGridViewShow.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewShow.Location = new System.Drawing.Point(645, 298);
+            this.dataGridViewShow.Location = new System.Drawing.Point(484, 238);
+            this.dataGridViewShow.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dataGridViewShow.Name = "dataGridViewShow";
             this.dataGridViewShow.RowHeadersVisible = false;
             this.dataGridViewShow.RowHeadersWidth = 51;
             this.dataGridViewShow.RowTemplate.Height = 27;
-            this.dataGridViewShow.Size = new System.Drawing.Size(540, 260);
+            this.dataGridViewShow.Size = new System.Drawing.Size(405, 208);
             this.dataGridViewShow.TabIndex = 17;
             // 
             // stuinfoBindingSource
@@ -436,9 +426,9 @@ namespace WindowsFormsApp1
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1191, 562);
+            this.ClientSize = new System.Drawing.Size(893, 450);
             this.Controls.Add(this.panelAddSinfo);
             this.Controls.Add(this.panelSearchSinfo);
             this.Controls.Add(this.panelDelSinfo);
@@ -455,7 +445,6 @@ namespace WindowsFormsApp1
             this.Controls.Add(this.labelTitle);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "学生管理系统";
             this.panelAddSinfo.ResumeLayout(false);

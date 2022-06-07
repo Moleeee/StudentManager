@@ -26,10 +26,10 @@ namespace WindowsFormsApp1
         public LoginForm01()
         {
             InitializeComponent();
-            this.Load += CreateMysqlDB; //创建名为Admin的数据库
+            this.Load += CreateMysqlDB; //创建名为Admin01的数据库
             this.Load += CreatTable_tAccount;    //创建存储管理员初始账户的表
             this.Load += CreatTable_sAccount;    //创建存储学生初始账户的表
-            this.Load += InisAccountList;       //初始化学生账户的
+            this.Load += InisAccountList;       //初始化学生账户的链表
             this.Load += ConnectMySQL;  //连接数据库，获取初始账户信息
         }
         static string port = "port=3306;";
@@ -187,7 +187,7 @@ namespace WindowsFormsApp1
                     {
                         conn.Open();
                         //更新密码
-                        string updatePas = "update tinfo set Password = '" + textBoxNewPas.Text + "' where Account = " + textBoxChangeAccount.Text;
+                        string updatePas = "update teinfo set Password = '" + textBoxNewPas.Text + "' where Account = " + textBoxChangeAccount.Text;
                         MySqlCommand cmd = new MySqlCommand(updatePas, conn);
                         cmd.ExecuteNonQuery();
                         admins[index].Password = textBoxNewPas.Text;
@@ -195,7 +195,8 @@ namespace WindowsFormsApp1
                     }
                     catch
                     {
-                        MessageBox.Show("failed");
+                        //MessageBox.Show("failed");
+                        throw;
                     }
                     finally
                     {

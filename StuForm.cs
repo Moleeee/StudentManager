@@ -112,11 +112,6 @@ namespace WindowsFormsApp1
             }
         }
 
-        private void buttonCheck_Click(object sender, EventArgs e)
-        {
-            CheckDeg();
-        }
-
         private void OpenMySQL(object sender, EventArgs e)
         {
 
@@ -137,6 +132,11 @@ namespace WindowsFormsApp1
             conn.Close();
         }
 
+        private void buttonCheck_Click(object sender, EventArgs e)
+        {
+            CheckDeg();
+        }
+
         private void buttonSelectLesson_Click(object sender, EventArgs e)
         {
             panelSL.Visible = true;
@@ -151,6 +151,11 @@ namespace WindowsFormsApp1
         private void buttonSLBack_Click(object sender, EventArgs e)
         {
             panelSL.Visible = false;
+        }
+
+        private void labelnowSno_Click(object sender, EventArgs e)
+        {
+
         }
 
 

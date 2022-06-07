@@ -57,8 +57,9 @@ namespace WindowsFormsApp1
                             "values('" + Sno + "','" + Sname + "','" + Sdeg + "','" + Ssex + "','" + Sgrade + "','"+Slesson+"')";
             bool corrNo = Sno.Length == 10;
             bool isContent=true;
-            float deg = float.Parse(Sdeg);
-            if(Sname==""||Sdeg==""|| Ssex == "" || Sgrade == ""|| deg < 0 || deg > 100)
+            float deg;
+            bool a = float.TryParse(Sdeg,out deg);
+            if (Sname==""||Sdeg==""|| Ssex == "" || Sgrade == ""|| deg < 0 || deg > 100)
             {
                 isContent = false;
             }
@@ -211,7 +212,9 @@ namespace WindowsFormsApp1
                                     "姓名:" + dr.GetString("Sname") + "\t" +
                                     "成绩:" + dr.GetString("Sdeg") + "\t" +
                                     "性别:" + dr.GetString("Ssex") + "\t" +
-                                    "年级:" + dr.GetString("Sgrade"), "查找结果");
+                                    "年级:" + dr.GetString("Sgrade") + "\t" +
+                                    "选课:" + dr.GetString("Slesson")
+                                    , "查找结果");
                 }
                 else
                 {
@@ -341,7 +344,6 @@ namespace WindowsFormsApp1
         private void timer1_Tick(object sender, EventArgs e)    //接着在定时器触发事件中添加获取时间和显示时间函数
         {
             DateTime time = DateTime.Now;       //获取当前时间
-            //labelDate.Font = new Font("宋体", 12);  //设置label1显示字体
             this.labelDate.Text = time.ToString(); //显示当前时间
         }
 
